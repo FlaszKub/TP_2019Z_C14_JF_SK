@@ -52,6 +52,7 @@
     <Compile Include="BookUnitTest.cs" />
     <Compile Include="ClientUnitTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SpecimenUnitTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
