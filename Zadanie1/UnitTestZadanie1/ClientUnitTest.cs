@@ -18,7 +18,7 @@ namespace UnitTestZadanie1
         [TestMethod]
         public void SettersTest()
         {
-            Client client = new Client("Tom", "Cat", "216754");
+            Client client = new Client(null, null, null);
             client.FirstName = "Visual";
             Assert.AreEqual<string>("Visual", client.FirstName);
             client.LastName = "Studio";

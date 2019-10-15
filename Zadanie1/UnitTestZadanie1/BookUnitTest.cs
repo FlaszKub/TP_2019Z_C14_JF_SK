@@ -18,7 +18,7 @@ namespace UnitTestZadanie1
         [TestMethod]
         public void SettersTest()
         {
-            Book book = new Book("Tom", "C#Start", 455);
+            Book book = new Book(null, null, 0);
             book.Author = "Jerry";
             Assert.AreEqual<string>("Jerry", book.Author);
             book.Title = "Java";
