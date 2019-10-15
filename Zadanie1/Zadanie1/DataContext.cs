@@ -3,7 +3,7 @@ using System.Collections.ObjectModel;
 
 namespace Zadanie1
 {
-    class DataContext
+    public class DataContext
     {
         public List<Client> clients = new List<Client>();
         public Dictionary<int, Book> books = new Dictionary<int, Book>();

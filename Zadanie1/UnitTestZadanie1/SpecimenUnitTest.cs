@@ -23,11 +23,11 @@ namespace UnitTestZadanie1
         [TestMethod]
         public void SetterTest()
         {
-            Book book = new Book("Tom", "C#Start", 455);
-            DateTimeOffset date = new DateTimeOffset(new DateTime(2019, 10, 15));
             Specimen specimen = new Specimen(null, new DateTimeOffset(), 0, 0, null);
+            Book book = new Book("Tom", "C#Start", 455);
             specimen.Book = book;
             Assert.AreEqual<Book>(book, specimen.Book);
+            DateTimeOffset date = new DateTimeOffset(new DateTime(2019, 10, 15));
             specimen.DateOfPurchase = date;
             Assert.AreEqual<DateTimeOffset>(date, specimen.DateOfPurchase);
             specimen.NetPrice = 25.6f;
