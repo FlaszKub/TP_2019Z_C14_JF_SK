@@ -5,7 +5,7 @@ using Zadanie1;
 namespace UnitTestZadanie1
 {
     [TestClass]
-    public class SaleEventUnitTest
+    public class EventUnitTest
     {
         [TestMethod]
         public void CtorTest()
@@ -13,27 +13,30 @@ namespace UnitTestZadanie1
             Client client = new Client("Ala", "Kot", "2234");
             Book book = new Book("J R R Tolkien", "Hobbit", 1);
             DateTimeOffset date = new DateTimeOffset(new DateTime(2019, 10, 15));
-            Specimen specimen = new Specimen(book, new DateTimeOffset(new DateTime(2019, 10, 5)), 45.3f, 10, "XRA");
-            SaleEvent saleEvent = new SaleEvent(client, specimen, date);
+            BookState bookState = new BookState(book, 5, 45.3f, 10, "XRA");
+            Event saleEvent = new Event(client, bookState, date, 2, false);
             Assert.AreEqual<Client>(client, saleEvent.Client);
-            Assert.AreEqual<Specimen>(specimen, saleEvent.Specimen);
-            Assert.AreEqual<DateTimeOffset>(date, saleEvent.SaleDate);
+            Assert.AreEqual<BookState>(bookState, saleEvent.BookState);
+            Assert.AreEqual<DateTimeOffset>(date, saleEvent.Date);
+            Assert.AreEqual<bool>(false, saleEvent.IsPurchase);
         }
 
         [TestMethod]
         public void SettersTest()
         {
-            SaleEvent saleEvent = new SaleEvent(null, null, new DateTimeOffset());
+            Event saleEvent = new Event(null, null, new DateTimeOffset(), 0, false);
             Client client = new Client("Ala", "Kot", "2234");
             saleEvent.Client = client;
             Assert.AreEqual<Client>(client, saleEvent.Client);
             Book book = new Book("J R R Tolkien", "Hobbit", 1);
-            Specimen specimen = new Specimen(book, new DateTimeOffset(new DateTime(2019, 10, 5)), 45.3f, 10, "XRA");
-            saleEvent.Specimen = specimen;
-            Assert.AreEqual<Specimen>(specimen, saleEvent.Specimen);
+            BookState bookState = new BookState(book, 8, 45.3f, 10, "XRA");
+            saleEvent.BookState = bookState;
+            Assert.AreEqual<BookState>(bookState, saleEvent.BookState);
             DateTimeOffset date = new DateTimeOffset(new DateTime(2019, 10, 15));
-            saleEvent.SaleDate = date;
-            Assert.AreEqual<DateTimeOffset>(date, saleEvent.SaleDate);
+            saleEvent.Date = date;
+            Assert.AreEqual<DateTimeOffset>(date, saleEvent.Date);
+            saleEvent.Quantity = 6;
+            Assert.AreEqual<int>(6, saleEvent.Quantity);
         }
     }
 }
