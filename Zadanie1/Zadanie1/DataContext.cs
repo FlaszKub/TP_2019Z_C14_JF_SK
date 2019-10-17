@@ -7,7 +7,7 @@ namespace Zadanie1
     {
         public List<Client> clients = new List<Client>();
         public Dictionary<int, Book> books = new Dictionary<int, Book>();
-        public ObservableCollection<SaleEvent> saleEvents = new ObservableCollection<SaleEvent>();
-        public List<Specimen> specimens = new List<Specimen>();
+        public ObservableCollection<Event> events = new ObservableCollection<Event>();
+        public List<BookState> bookStates = new List<BookState>();
     }
 }
