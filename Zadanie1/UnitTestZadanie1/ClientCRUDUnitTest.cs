@@ -44,10 +44,9 @@ namespace UnitTestZadanie1
             list2.Add(new Client("Holy", "Hancock", "215912"));
             list2.Add(new Client("John", "Smith", "217632"));
             list2.Add(new Client("Holy", "Smith", "216143"));
-            Assert.AreEqual(list[0], list2[0]);
-            Assert.AreEqual(list[1], list2[1]);
-            Assert.AreEqual(list[2], list2[2]);
-            Assert.AreEqual(list[3], list2[3]);
+            Assert.AreEqual(list.Count(), list2.Count);
+            for (int i = 0; i < list.Count(); i++)
+                Assert.AreEqual(list[i], list2[i]);
         }
         [TestMethod]
         public void DeleteClientTest()

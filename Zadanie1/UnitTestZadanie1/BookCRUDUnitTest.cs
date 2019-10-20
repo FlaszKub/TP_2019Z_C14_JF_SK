@@ -43,10 +43,9 @@ namespace UnitTestZadanie1
             list2.Add(new Book("Tara Westover", "Tara Westover", 524));
             list2.Add(new Book("Mark R. Levin", "Unfreedom of the Press", 125));
             list2.Add(new Book("Jake Richards", "Backwoods Witchcraft", 666));
-            Assert.AreEqual(list[0], list2[0]);
-            Assert.AreEqual(list[1], list2[1]);
-            Assert.AreEqual(list[2], list2[2]);
-            Assert.AreEqual(list[3], list2[3]);
+            Assert.AreEqual(list.Count(), list2.Count);
+            for (int i = 0; i < list.Count(); i++)
+                Assert.AreEqual(list[i], list2[i]);
         }
         [TestMethod]
         public void DeleteClientTest()
