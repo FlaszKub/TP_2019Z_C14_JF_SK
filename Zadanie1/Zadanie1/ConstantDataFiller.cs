@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Zadanie1
 {
-    class ConstantDataFiller : IDataFiller
+    public class ConstantDataFiller : IDataFiller
     {
         public void Fill(DataContext context)
         {
@@ -25,15 +21,15 @@ namespace Zadanie1
             context.bookStates.Add(new BookState(context.books[125], 10, 39.99f, 23, "45Z"));
             context.bookStates.Add(new BookState(context.books[666], 10, 21.99f, 23, "15T"));
 
-            context.events.Add(new Event(context.clients[0], context.bookStates[0], DateTimeOffset.Now, 10, true));
-            context.events.Add(new Event(context.clients[1], context.bookStates[1], DateTimeOffset.Now, 8, true));
-            context.events.Add(new Event(context.clients[0], context.bookStates[2], DateTimeOffset.Now, 7, true));
-            context.events.Add(new Event(context.clients[1], context.bookStates[3], DateTimeOffset.Now, 6, true));
+            context.events.Add(new Event(context.clients[0], context.bookStates[0], new DateTime(2019, 10, 15), 10, true));
+            context.events.Add(new Event(context.clients[1], context.bookStates[1], new DateTime(2019, 10, 12), 8, true));
+            context.events.Add(new Event(context.clients[0], context.bookStates[2], new DateTime(2019, 10, 11), 7, true));
+            context.events.Add(new Event(context.clients[1], context.bookStates[3], new DateTime(2019, 10, 9), 6, true));
 
-            context.events.Add(new Event(context.clients[2], context.bookStates[1], DateTimeOffset.Now, 1, false));
-            context.events.Add(new Event(context.clients[3], context.bookStates[0], DateTimeOffset.Now, 4, false));
-            context.events.Add(new Event(context.clients[0], context.bookStates[3], DateTimeOffset.Now, 1, false));
-            context.events.Add(new Event(context.clients[2], context.bookStates[3], DateTimeOffset.Now, 2, false));
+            context.events.Add(new Event(context.clients[2], context.bookStates[1], new DateTime(2019, 10, 21), 1, false));
+            context.events.Add(new Event(context.clients[3], context.bookStates[0], new DateTime(2019, 10, 1), 4, false));
+            context.events.Add(new Event(context.clients[0], context.bookStates[3], new DateTime(2019, 10, 5), 1, false));
+            context.events.Add(new Event(context.clients[2], context.bookStates[3], new DateTime(2019, 10, 7), 2, false));
         }
     }
 }

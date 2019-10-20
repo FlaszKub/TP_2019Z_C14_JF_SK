@@ -2,7 +2,7 @@
 
 namespace Zadanie1
 {
-    class DataRepository
+    public class DataRepository
     {
         private DataContext dataContext;
         private IDataFiller filler;

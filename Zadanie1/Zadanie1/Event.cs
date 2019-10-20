@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Zadanie1
 {
@@ -17,6 +18,28 @@ namespace Zadanie1
             this.Date = date;
             this.Quantity = quantity;
             this.IsPurchase = isPurchase;
+        }
+
+        public override bool Equals(object obj)
+        {
+            var @event = obj as Event;
+            return @event != null &&
+                   EqualityComparer<BookState>.Default.Equals(BookState, @event.BookState) &&
+                   EqualityComparer<Client>.Default.Equals(Client, @event.Client) &&
+                   Date.Equals(@event.Date) &&
+                   Quantity == @event.Quantity &&
+                   IsPurchase == @event.IsPurchase;
+        }
+
+        public override int GetHashCode()
+        {
+            var hashCode = 1248127326;
+            hashCode = hashCode * -1521134295 + EqualityComparer<BookState>.Default.GetHashCode(BookState);
+            hashCode = hashCode * -1521134295 + EqualityComparer<Client>.Default.GetHashCode(Client);
+            hashCode = hashCode * -1521134295 + EqualityComparer<DateTimeOffset>.Default.GetHashCode(Date);
+            hashCode = hashCode * -1521134295 + Quantity.GetHashCode();
+            hashCode = hashCode * -1521134295 + IsPurchase.GetHashCode();
+            return hashCode;
         }
     }
 }
