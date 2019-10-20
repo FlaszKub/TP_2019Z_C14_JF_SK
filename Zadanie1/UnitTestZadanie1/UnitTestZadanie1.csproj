@@ -50,7 +50,9 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BookCRUDUnitTest.cs" />
     <Compile Include="BookUnitTest.cs" />
+    <Compile Include="ClientCRUDUnitTest.cs" />
     <Compile Include="ClientUnitTest.cs" />
     <Compile Include="FillerUnitTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

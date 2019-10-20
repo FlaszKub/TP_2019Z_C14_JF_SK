@@ -24,31 +24,17 @@ namespace Zadanie1
             dataContext.clients.Add(client);
         }
 
-        public Client GetClient(string id)
+        public Client GetClient(int index)
         {
-            foreach (Client client in dataContext.clients)
-            {
-                if (client.Id == id)
-                {
-                    return client;
-                }
-            }
-            return null;
+            return dataContext.clients[index];
         }
 
         public IEnumerable<Client> GetAllClients() {
             return dataContext.clients;
         }
 
-        public void DeleteClient(string id) {
-            foreach (Client client in dataContext.clients)
-            {
-                if (client.Id == id)
-                {
-                    dataContext.clients.Remove(client);
-                    break;
-                }
-            }
+        public void DeleteClient(int index) {
+            dataContext.clients.RemoveAt(index);
         }
 
         public void DeleteClient(Client client) {
@@ -84,16 +70,9 @@ namespace Zadanie1
             dataContext.bookStates.Add(bookState);
         }
 
-        public BookState GetBookState(string id)
+        public BookState GetBookState(int index)
         {
-            foreach (BookState bookState in dataContext.bookStates)
-            {
-                if (bookState.Id == id)
-                {
-                    return bookState;
-                }
-            }
-            return null;
+            return dataContext.bookStates[index];
         }
 
         public IEnumerable<BookState> GetAllBookStates()
@@ -101,16 +80,9 @@ namespace Zadanie1
             return dataContext.bookStates;
         }
 
-        public void DeleteBookState(string id)
+        public void DeleteBookState(int index)
         {
-            foreach (BookState bookState in dataContext.bookStates)
-            {
-                if (bookState.Id == id)
-                {
-                    dataContext.bookStates.Remove(bookState);
-                    break;
-                }
-            }
+            dataContext.bookStates.RemoveAt(index);
         }
 
         public void DeleteBookState(BookState bookState)
@@ -124,9 +96,9 @@ namespace Zadanie1
             dataContext.events.Add(_event);
         }
 
-        public Event GetEvent(int id)
+        public Event GetEvent(int index)
         {
-            return dataContext.events[id];
+            return dataContext.events[index];
         }
 
         public IEnumerable<Event> GetAllEvents()
@@ -139,6 +111,10 @@ namespace Zadanie1
             dataContext.events.Remove(_event);
         }
 
+        public void DeleteEvent(int index)
+        {
+            dataContext.events.RemoveAt(index);
+        }
 
         #endregion
     }
