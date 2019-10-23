@@ -15,6 +15,11 @@ namespace Zadanie1
             this.Id = id;
         }
 
+        public override string ToString()
+        {
+            return this.FirstName + " " + this.LastName + " " + this.Id;
+        }
+
         public override bool Equals(object obj)
         {
             return obj is Client client &&

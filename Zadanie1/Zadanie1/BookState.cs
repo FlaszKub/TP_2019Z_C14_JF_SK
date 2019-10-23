@@ -19,6 +19,11 @@ namespace Zadanie1
             this.Quantity = quantity;  
         }
 
+        public override string ToString()
+        {
+            return "Book{" + this.Book + "} " + this.Quantity + " " + this.NetPrice + " " + this.Tax + " " + this.Id;
+        }
+
         public override bool Equals(object obj)
         {
             return obj is BookState state &&

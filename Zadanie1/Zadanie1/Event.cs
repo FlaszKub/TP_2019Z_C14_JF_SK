@@ -20,6 +20,11 @@ namespace Zadanie1
             this.IsPurchase = isPurchase;
         }
 
+        public override string ToString()
+        {
+            return "BookState{" + this.BookState + "} " + "Client{" + this.Client + "} " + this.Date + " " + this.Quantity + " " + this.IsPurchase;
+        }
+
         public override bool Equals(object obj)
         {
             return obj is Event _event &&

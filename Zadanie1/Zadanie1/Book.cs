@@ -15,6 +15,11 @@ namespace Zadanie1
             this.KeyNumber = keyNumber;
         }
 
+        public override string ToString()
+        {
+            return this.Author + " " + this.Title + " " + this.KeyNumber;
+        }
+
         public override bool Equals(object obj)
         {
             return obj is Book book &&
