@@ -22,18 +22,17 @@ namespace Zadanie1
 
         public override bool Equals(object obj)
         {
-            var @event = obj as Event;
-            return @event != null &&
-                   EqualityComparer<BookState>.Default.Equals(BookState, @event.BookState) &&
-                   EqualityComparer<Client>.Default.Equals(Client, @event.Client) &&
-                   Date.Equals(@event.Date) &&
-                   Quantity == @event.Quantity &&
-                   IsPurchase == @event.IsPurchase;
+            return obj is Event _event &&
+                   EqualityComparer<BookState>.Default.Equals(BookState, _event.BookState) &&
+                   EqualityComparer<Client>.Default.Equals(Client, _event.Client) &&
+                   Date.Equals(_event.Date) &&
+                   Quantity == _event.Quantity &&
+                   IsPurchase == _event.IsPurchase;
         }
 
         public override int GetHashCode()
         {
-            var hashCode = 1248127326;
+            int hashCode = 1248127326;
             hashCode = hashCode * -1521134295 + EqualityComparer<BookState>.Default.GetHashCode(BookState);
             hashCode = hashCode * -1521134295 + EqualityComparer<Client>.Default.GetHashCode(Client);
             hashCode = hashCode * -1521134295 + EqualityComparer<DateTimeOffset>.Default.GetHashCode(Date);

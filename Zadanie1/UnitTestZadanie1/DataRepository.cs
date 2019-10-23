@@ -1,10 +1,8 @@
-﻿
-
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Zadanie1
 {
-    public class DataRepository
+    public class DataRepository : IDataRepository
     {
         private DataContext dataContext;
         private IDataFiller filler;

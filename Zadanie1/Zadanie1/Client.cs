@@ -1,6 +1,4 @@
-﻿
-
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Zadanie1
 {
@@ -19,8 +17,7 @@ namespace Zadanie1
 
         public override bool Equals(object obj)
         {
-            var client = obj as Client;
-            return client != null &&
+            return obj is Client client &&
                    FirstName == client.FirstName &&
                    LastName == client.LastName &&
                    Id == client.Id;
@@ -28,7 +25,7 @@ namespace Zadanie1
 
         public override int GetHashCode()
         {
-            var hashCode = 1258739292;
+            int hashCode = 1258739292;
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(FirstName);
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(LastName);
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Id);
