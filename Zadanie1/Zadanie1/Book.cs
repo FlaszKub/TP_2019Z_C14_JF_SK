@@ -1,5 +1,7 @@
 ﻿
 
+using System.Collections.Generic;
+
 namespace Zadanie1
 {
     public class Book
@@ -13,6 +15,24 @@ namespace Zadanie1
             this.Author = author;
             this.Title = title;
             this.KeyNumber = keyNumber;
+        }
+
+        public override bool Equals(object obj)
+        {
+            var book = obj as Book;
+            return book != null &&
+                   Author == book.Author &&
+                   Title == book.Title &&
+                   KeyNumber == book.KeyNumber;
+        }
+
+        public override int GetHashCode()
+        {
+            var hashCode = -802353372;
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Author);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Title);
+            hashCode = hashCode * -1521134295 + KeyNumber.GetHashCode();
+            return hashCode;
         }
     }
 }
