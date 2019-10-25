@@ -23,45 +23,6 @@ namespace Zadanie1
         }
         #endregion
 
-        #region DisplayAsString
-        public string DisplayClient(IEnumerable<Client> positions)
-        {
-            string result = "";
-            foreach (Client position in positions)
-            {
-                result += position.ToString() + "|";
-            }
-            return result;
-        }
-        public string DisplayBook(IEnumerable<Book> positions)
-        {
-            string result = "";
-            foreach (Book position in positions)
-            {
-                result += position.ToString() + "|";
-            }
-            return result;
-        }
-        public string DisplayBookState(IEnumerable<BookState> positions)
-        {
-            string result = "BookState";
-            foreach (BookState position in positions)
-            {
-                result += position.ToString() + "|";
-            }
-            return result;
-        }
-        public string DisplayEvent(IEnumerable<Event> positions)
-        {
-            string result = "BookState";
-            foreach (Event position in positions)
-            {
-                result += position.ToString() + "|";
-            }
-            return result;
-        }
-        #endregion
-
         public  IEnumerable<Event> GetEventsForClient(Client client)
         {
             List<Event>  result = new List<Event>();

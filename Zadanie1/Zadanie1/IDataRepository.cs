@@ -8,7 +8,6 @@ namespace Zadanie1
         void AddClient(Client client);
         Client GetClient(int index);
         IEnumerable<Client> GetAllClients();
-        void DeleteClient(int index);
         void DeleteClient(Client client);
         #endregion
 
@@ -23,7 +22,6 @@ namespace Zadanie1
         void AddBookState(BookState bookState);
         BookState GetBookState(int index);
         IEnumerable<BookState> GetAllBookStates();
-        void DeleteBookState(int index);
         void DeleteBookState(BookState bookState);
 
         #endregion
@@ -33,7 +31,6 @@ namespace Zadanie1
         Event GetEvent(int index);
         IEnumerable<Event> GetAllEvents();
         void DeleteEvent(Event _event);
-        void DeleteEvent(int index);
         #endregion
     }
 }

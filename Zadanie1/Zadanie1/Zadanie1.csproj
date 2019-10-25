@@ -50,6 +50,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Event.cs" />
     <Compile Include="BookState.cs" />
+    <Compile Include="Purchase.cs" />
+    <Compile Include="Sale.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

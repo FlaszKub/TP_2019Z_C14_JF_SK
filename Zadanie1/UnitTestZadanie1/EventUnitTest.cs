@@ -14,17 +14,16 @@ namespace UnitTestZadanie1
             Book book = new Book("J R R Tolkien", "Hobbit", 1);
             DateTimeOffset date = new DateTimeOffset(new DateTime(2019, 10, 15));
             BookState bookState = new BookState(book, 5, 45.3f, 10, "XRA");
-            Event saleEvent = new Event(client, bookState, date, 2, false);
+            Event saleEvent = new Sale(client, bookState, date, 2);
             Assert.AreEqual<Client>(client, saleEvent.Client);
             Assert.AreEqual<BookState>(bookState, saleEvent.BookState);
             Assert.AreEqual<DateTimeOffset>(date, saleEvent.Date);
-            Assert.AreEqual<bool>(false, saleEvent.IsPurchase);
         }
 
         [TestMethod]
         public void SettersTest()
         {
-            Event saleEvent = new Event(null, null, new DateTimeOffset(), 0, false);
+            Event saleEvent = new Sale(null, null, new DateTimeOffset(), 0);
             Client client = new Client("Ala", "Kot", "2234");
             saleEvent.Client = client;
             Assert.AreEqual<Client>(client, saleEvent.Client);

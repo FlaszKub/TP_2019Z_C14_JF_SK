@@ -48,7 +48,7 @@ namespace UnitTestZadanie1
                 Assert.AreEqual(list[i], list2[i]);
         }
         [TestMethod]
-        public void DeleteClientTest()
+        public void DeleteBookTest()
         {
             DataContext dataContext = new DataContext();
             ConstantDataFiller constantDataFiller = new ConstantDataFiller();

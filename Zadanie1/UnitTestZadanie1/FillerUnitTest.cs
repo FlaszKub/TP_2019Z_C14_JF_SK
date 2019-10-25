@@ -28,9 +28,9 @@ namespace UnitTestZadanie1
             Assert.AreEqual(dataContext.bookStates[2], new BookState(dataContext.books[125], 10, 39.99f, 23, "45Z"));
             Assert.AreEqual(dataContext.bookStates[3], new BookState(dataContext.books[666], 10, 21.99f, 23, "15T"));
 
-            Assert.AreEqual(dataContext.events[0], new Event(dataContext.clients[0], dataContext.bookStates[0], new DateTime(2019, 10, 15), 10, true));
-            Assert.AreEqual(dataContext.events[1], new Event(dataContext.clients[1], dataContext.bookStates[1], new DateTime(2019, 10, 12), 8, true));
-            Assert.AreEqual(dataContext.events[2], new Event(dataContext.clients[0], dataContext.bookStates[2], new DateTime(2019, 10, 11), 7, true));
+            Assert.AreEqual(dataContext.events[0], new Purchase(dataContext.clients[0], dataContext.bookStates[0], new DateTime(2019, 10, 15), 10));
+            Assert.AreEqual(dataContext.events[1], new Purchase(dataContext.clients[1], dataContext.bookStates[1], new DateTime(2019, 10, 12), 8));
+            Assert.AreEqual(dataContext.events[2], new Purchase(dataContext.clients[0], dataContext.bookStates[2], new DateTime(2019, 10, 11), 7));
         }
     }
 }
