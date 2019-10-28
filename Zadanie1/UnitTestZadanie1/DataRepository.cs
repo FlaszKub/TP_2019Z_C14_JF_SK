@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.Specialized;
 using Zadanie1;
 
 namespace UnitTestZadanie1
@@ -7,14 +9,32 @@ namespace UnitTestZadanie1
     {
         private DataContext dataContext;
         private IDataFiller filler;
+
+        public event EventHandler EventAdded;
+        public event EventHandler EventRemoved;
+
         public DataRepository(DataContext dataContext, IDataFiller filler)
         {
             this.dataContext = dataContext;
+            this.dataContext.events.CollectionChanged += CollectionEventsChanged;
             this.filler = filler;
             filler.Fill(dataContext);
         }
 
+        private void CollectionEventsChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            if (e.Action == NotifyCollectionChangedAction.Add)
+            {
+                EventAdded?.Invoke(this, e);
+            }
+            if (e.Action == NotifyCollectionChangedAction.Remove)
+            {
+                EventRemoved?.Invoke(this, e);
+            }
+        }
+
         // C. R. U. D.
+
 
         #region Clients
 
@@ -31,11 +51,13 @@ namespace UnitTestZadanie1
             return dataContext.clients[index];
         }
 
-        public IEnumerable<Client> GetAllClients() {
+        public IEnumerable<Client> GetAllClients()
+        {
             return dataContext.clients;
         }
 
-        public void DeleteClient(Client client) {
+        public void DeleteClient(Client client)
+        {
             if (dataContext.clients.Contains(client))
             {
                 dataContext.clients.Remove(client);
@@ -95,10 +117,11 @@ namespace UnitTestZadanie1
         #endregion
 
         #region Events
-        public void AddEvent(Event _event) {
+        public void AddEvent(Event _event)
+        {
             this.AddClient(_event.Client);
             this.AddBookState(_event.BookState);
-            if(_event is Sale)
+            if (_event is Sale)
             {
                 _event.BookState.Quantity = _event.BookState.Quantity - _event.Quantity;
                 dataContext.events.Add(_event);

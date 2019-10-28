@@ -1,9 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Zadanie1
 {
     public interface IDataRepository
     {
+        event EventHandler EventAdded;
+        event EventHandler EventRemoved;
         #region Clients
         void AddClient(Client client);
         Client GetClient(int index);
