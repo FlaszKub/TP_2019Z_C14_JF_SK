@@ -32,5 +32,17 @@ namespace UnitTestZadanie1
             Assert.AreEqual(dataContext.events[1], new Purchase(dataContext.clients[1], dataContext.bookStates[1], new DateTime(2019, 10, 12), 8));
             Assert.AreEqual(dataContext.events[2], new Purchase(dataContext.clients[0], dataContext.bookStates[2], new DateTime(2019, 10, 11), 7));
         }
+
+        [TestMethod]
+        public void RandomFillerTest() {
+                DataContext dataContext = new DataContext();
+                DataRepository dataRepository = new DataRepository(dataContext, new RandomDataFiller(8, 7, 10));
+
+                Assert.AreEqual(dataContext.clients.Count, 8);
+                Assert.AreEqual(dataContext.books.Count, 7);
+                Assert.AreEqual(dataContext.bookStates.Count, 7);
+                Assert.AreEqual(dataContext.events.Count, 10);
+            
+        }
     }
 }
