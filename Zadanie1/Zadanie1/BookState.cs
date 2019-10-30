@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Zadanie1
 {
@@ -20,10 +19,14 @@ namespace Zadanie1
             this.Quantity = quantity;  
         }
 
+        public override string ToString()
+        {
+            return "Book{" + this.Book + "} " + this.Quantity + " " + this.NetPrice + " " + this.Tax + " " + this.Id;
+        }
+
         public override bool Equals(object obj)
         {
-            var state = obj as BookState;
-            return state != null &&
+            return obj is BookState state &&
                    EqualityComparer<Book>.Default.Equals(Book, state.Book) &&
                    Quantity == state.Quantity &&
                    NetPrice == state.NetPrice &&

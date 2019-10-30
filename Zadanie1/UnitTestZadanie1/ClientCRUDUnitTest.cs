@@ -63,12 +63,6 @@ namespace UnitTestZadanie1
             Assert.AreEqual(dataContext.clients.Count, size1 - 1 );
             Assert.IsFalse(dataContext.clients.Contains(client));
 
-            dataContext.clients.Add(client);
-            int size2 = dataContext.clients.Count();
-            Assert.IsTrue(dataContext.clients.Contains(client));
-            dataRepository.DeleteClient(dataContext.clients.Count-1);
-            Assert.AreEqual(dataContext.clients.Count, size1 - 1);
-            Assert.IsFalse(dataContext.clients.Contains(client));
         }
 
     }

@@ -1,6 +1,4 @@
-﻿
-
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Zadanie1
 {
@@ -17,10 +15,14 @@ namespace Zadanie1
             this.KeyNumber = keyNumber;
         }
 
+        public override string ToString()
+        {
+            return this.Author + " " + this.Title + " " + this.KeyNumber;
+        }
+
         public override bool Equals(object obj)
         {
-            var book = obj as Book;
-            return book != null &&
+            return obj is Book book &&
                    Author == book.Author &&
                    Title == book.Title &&
                    KeyNumber == book.KeyNumber;
@@ -28,7 +30,7 @@ namespace Zadanie1
 
         public override int GetHashCode()
         {
-            var hashCode = -802353372;
+            int hashCode = -802353372;
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Author);
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Title);
             hashCode = hashCode * -1521134295 + KeyNumber.GetHashCode();

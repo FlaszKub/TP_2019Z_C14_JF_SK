@@ -65,13 +65,6 @@ namespace UnitTestZadanie1
             dataRepository.DeleteBookState(bookState);
             Assert.AreEqual(dataContext.bookStates.Count, size1 - 1);
             Assert.IsFalse(dataContext.bookStates.Contains(bookState));
-
-            dataContext.bookStates.Add(bookState);
-            int size2 = dataContext.bookStates.Count();
-            Assert.IsTrue(dataContext.bookStates.Contains(bookState));
-            dataRepository.DeleteBookState(dataContext.bookStates.Count - 1);
-            Assert.AreEqual(dataContext.bookStates.Count, size1 - 1);
-            Assert.IsFalse(dataContext.bookStates.Contains(bookState));
         }
     }
 }
