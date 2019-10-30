@@ -44,6 +44,7 @@
     <Compile Include="Book.cs" />
     <Compile Include="Client.cs" />
     <Compile Include="DataContext.cs" />
+    <Compile Include="DataRepository.cs" />
     <Compile Include="DataService.cs" />
     <Compile Include="IDataFiller.cs" />
     <Compile Include="IDataRepository.cs" />

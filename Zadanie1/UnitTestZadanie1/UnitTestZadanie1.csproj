@@ -55,7 +55,6 @@
     <Compile Include="ClientCRUDUnitTest.cs" />
     <Compile Include="ClientUnitTest.cs" />
     <Compile Include="ConstantDataFiller.cs" />
-    <Compile Include="DataRepository.cs" />
     <Compile Include="EventCRUDUnitTest.cs" />
     <Compile Include="FillerUnitTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
