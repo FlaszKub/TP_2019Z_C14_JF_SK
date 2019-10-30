@@ -82,5 +82,25 @@ namespace UnitTestZadanie1
             Assert.IsFalse(dataContext.events.Contains(saleEvent));
 
         }
+        [TestMethod]
+        public void ObservableCollectionEventTest()
+        {
+            DataRepository dataRepository = new DataRepository(new DataContext(), new ConstantDataFiller());
+            Client client = dataRepository.GetAllClients().First();
+            BookState bookState = dataRepository.GetAllBookStates().First();
+
+            bool happend = false;
+            Event purchase = new Purchase(client, bookState, DateTimeOffset.Now, 2);
+            dataRepository.EventAdded += (object sender, EventArgs ags) => happend = true;
+            dataRepository.AddEvent(purchase);
+
+            Assert.IsTrue(happend);
+
+            happend = false;
+            dataRepository.EventRemoved += (object sender, EventArgs ags) => happend = true;
+            dataRepository.DeleteEvent(purchase);
+
+            Assert.IsTrue(happend);
+        }
     }
 }
