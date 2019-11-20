@@ -43,7 +43,7 @@ namespace UnitTestZadanie2
             ms.Position = 0;
             ClassA deserlizedA = (ClassA)serializer.Deserialize(ms);
             System.Console.WriteLine(deserlizedA.Serialize(new System.Runtime.Serialization.ObjectIDGenerator()));
-            //Assert.AreEqual(deserlizedA.ClassB.ClassA.ClassB.ClassA, deserlizedA);
+            Assert.AreEqual(deserlizedA.ClassB.ClassA.ClassB.ClassA, deserlizedA);
         }
     }
 }

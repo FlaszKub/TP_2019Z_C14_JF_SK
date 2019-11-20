@@ -10,7 +10,7 @@ namespace UnitTestZadanie2
         ObjectIDGenerator gen = new ObjectIDGenerator();
         char separator = ',';
 
-        public void Serialize(ICSerializable serializable,  Stream stream)
+        public void Serialize(ICSerializable serializable, Stream stream)
         {
             StreamWriter outputFile = new StreamWriter(stream);
             outputFile.WriteLine(serializable.Serialize(gen));
@@ -19,34 +19,44 @@ namespace UnitTestZadanie2
 
         public ICSerializable Deserialize(Stream stream)
         {
+
             Dictionary<int, object> refObjectsDict = new Dictionary<int, object>();
             ICSerializable temp = null;
+
             using (StreamReader sr = new StreamReader(stream))
             {
-                string line;
-                line = sr.ReadLine();
+                string line = sr.ReadLine();
                 string[] splitedObj = line.Split('>');
+
                 GenerateTempObj(splitedObj, refObjectsDict);
-                string[] firstObjDetails = splitedObj[0].Split(separator);
 
-                switch (firstObjDetails[0])
+                for (int index = 0; index < splitedObj.Length; index++)
                 {
-                    case "UnitTestZadanie2.ClassA":
-                        ClassA a = (ClassA)refObjectsDict[int.Parse(firstObjDetails[1])];
-                        a.Deserialize(firstObjDetails, refObjectsDict);
-                        ((ClassB)refObjectsDict[int.Parse(firstObjDetails[4])]).Deserialize(splitedObj[1].Split(separator), refObjectsDict);
-                        temp = a;
-                        break;
-                    case "UnitTestZadanie2.ClassB":
-                        ClassB b = (ClassB)refObjectsDict[int.Parse(firstObjDetails[1])];
-                        b.Deserialize(firstObjDetails, refObjectsDict);
-                        ((ClassA)refObjectsDict[int.Parse(firstObjDetails[3])]).Deserialize(splitedObj[1].Split(separator), refObjectsDict);
-                        temp = b;
-                        break;
-                }
+                    if (index < splitedObj.Length - 1)
+                    {
+                        string[] detailsFirstObj = splitedObj[index].Split(separator);
+                        string[] detailsRefObj = splitedObj[index + 1].Split(separator);
 
+                        switch (detailsFirstObj[0])
+                        {
+                            case "UnitTestZadanie2.ClassA":
+                                ClassA a = (ClassA)refObjectsDict[int.Parse(detailsFirstObj[1])];
+                                a.Deserialize(detailsFirstObj, refObjectsDict);
+                                ((ClassB)refObjectsDict[int.Parse(detailsFirstObj[4])]).Deserialize(detailsRefObj, refObjectsDict);
+                                temp = a;
+                                break;
+
+                            case "UnitTestZadanie2.ClassB":
+                                ClassB b = (ClassB)refObjectsDict[int.Parse(detailsFirstObj[1])];
+                                b.Deserialize(detailsFirstObj, refObjectsDict);
+                                ((ClassA)refObjectsDict[int.Parse(detailsFirstObj[3])]).Deserialize(detailsRefObj, refObjectsDict);
+                                temp = b;
+                                break;
+                        }
+                    }
+                }
+                return temp;
             }
-            return temp;
         }
 
         private void GenerateTempObj(string[] splitedObj, Dictionary<int, object> refObjectsDict)
