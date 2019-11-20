@@ -14,6 +14,16 @@ namespace Zadanie1
 
         public BookState() { }
 
+        public BookState(string[] data, Dictionary<int, object> refObjectsDict)
+        {
+            Book = (Book)refObjectsDict[int.Parse(data[2])];
+            Quantity = int.Parse(data[3]);          
+            Tax = int.Parse(data[4]);
+            Id = data[5];
+            NetPrice = float.Parse(data[6]);
+
+        }
+
         public BookState(Book book, int quantity, float netPrice, int tax, string id)
         {
             this.Book = book;
@@ -49,16 +59,16 @@ namespace Zadanie1
             return hashCode;
         }
 
-        string ICSerializable.Serialize(ObjectIDGenerator gen)
+        string ICSerializable.Serialize(ObjectIDGenerator gen, char separator)
         {
             string result = "";
-            result += GetType().FullName + ',';
-            result += gen.GetId(this, out bool firstTime).ToString();
-            result += gen.GetId(Book, out firstTime).ToString();
-            result += Quantity + ',';
-            result += NetPrice + ',';
-            result += Tax + ',';
-            result += Id + ',';
+            result += GetType().FullName + separator;
+            result += gen.GetId(this, out bool firstTime).ToString() + separator;
+            result += gen.GetId(Book, out firstTime).ToString() + separator;
+            result += Quantity.ToString() + separator;            
+            result += Tax.ToString() + separator;
+            result += Id.ToString() + separator;
+            result += NetPrice.ToString() + separator;
             return result;
             
         }

@@ -6,50 +6,93 @@ using Zadanie1;
 
 namespace Zadanie2
 {
-    class CustomSerializer
-    {
-        string Serialized;
-        Dictionary<int, object> refObjectsDict;
-        List<string> Deserialized = new List<string>();
-        public CustomSerializer(){
-            
-        }
+    public class CustomSerializer
+    {       
+        private readonly char separator = ';';
+        public CustomSerializer(){ }
         public void Serialize(DataContext dataContext, String path) {
             ObjectIDGenerator gen = new ObjectIDGenerator();
-            Serialized = serializeToString(dataContext, gen);
+            string Serialized = SerializeToString(dataContext, gen);
             using (FileStream fs = new FileStream(path, FileMode.OpenOrCreate))
             {
-                using (StreamWriter writer = new StreamWriter(fs))
+                using (StreamWriter output = new StreamWriter(fs))
                 {
-                    writer.WriteLine(Serialized);
+                    output.WriteLine(Serialized);
                 }
             }
         }
 
         public DataContext Deserialize(String path)
         {
-            DataContext context = new DataContext();
-
-            return context;
+            List<string[]> Deserialized = new List<string[]>();           
+            using (FileStream fs = new FileStream(path, FileMode.Open))
+            {
+                using (StreamReader input = new StreamReader(fs))
+                {
+                    string line;
+                    while ((line = input.ReadLine()) != null) {
+                        Deserialized.Add(line.Split(separator));
+                    }
+                }
+            }
+            return DeserializeFromString(Deserialized);
         }
 
-        private string serializeToString(DataContext dataContext, ObjectIDGenerator gen)
+        private DataContext DeserializeFromString(List<string[]> deserialized)
         {
-            String result = "";
+            DataContext result = new DataContext();
+            Dictionary<int, object> refObjectsDict = new Dictionary<int, object>();
+            foreach (string[] data in deserialized) {
+
+
+                switch (data[0]) {
+                    case "Zadanie1.Book":
+                        Book book = new Book(data, refObjectsDict);
+                        result.books.Add(book);
+                        refObjectsDict.Add(int.Parse(data[1]), book);
+                        break;
+                    case "Zadanie1.BookState":
+                        BookState bookState = new BookState(data, refObjectsDict);
+                        result.bookStates.Add(bookState);
+                        refObjectsDict.Add(int.Parse(data[1]), bookState);
+                        break;
+                    case "Zadanie1.Client":
+                        Client client = new Client(data, refObjectsDict);
+                        result.clients.Add(client);
+                        refObjectsDict.Add(int.Parse(data[1]), client);
+                        break;
+                    case "Zadanie1.Sale":
+                        Event sale = new Sale(data, refObjectsDict);
+                        result.events.Add(sale);
+                        refObjectsDict.Add(int.Parse(data[1]), sale);
+                        break;
+                    case "Zadanie1.Purchase":
+                        Event purchase = new Purchase(data, refObjectsDict);
+                        result.events.Add(purchase);
+                        refObjectsDict.Add(int.Parse(data[1]), purchase);
+                        break;
+                }
+            }
+            return result;
+        }
+
+        private string SerializeToString(DataContext dataContext, ObjectIDGenerator gen)
+        {
+            System.Text.StringBuilder result = new System.Text.StringBuilder();
             foreach (ICSerializable book in dataContext.books) {
-                result += book.Serialize(gen) + "\n";
+                result.Append(book.Serialize(gen, separator) + "\n");
             }
             foreach (ICSerializable bookState in dataContext.bookStates) {
-                result += bookState.Serialize(gen) + "\n";
+                result.Append(bookState.Serialize(gen, separator) + "\n");
             }
             foreach (ICSerializable client in dataContext.clients)
             {
-                result += client.Serialize(gen) + "\n";
+                result.Append(client.Serialize(gen, separator) + "\n");
             }
             foreach (ICSerializable _event in dataContext.events) {
-                result += _event.Serialize(gen) + "\n";
+                result.Append(_event.Serialize(gen, separator) + "\n");
             }
-            return result;
+            return result.ToString();
         }
     }
 }

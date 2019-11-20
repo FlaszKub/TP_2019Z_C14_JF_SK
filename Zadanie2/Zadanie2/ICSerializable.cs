@@ -6,7 +6,7 @@ namespace Zadanie2
 {
     interface ICSerializable
     {
-        string Serialize(ObjectIDGenerator gen);
+        string Serialize(ObjectIDGenerator gen, char separator);
         void Deserialize(string[] data, Dictionary<int, object> refObjectsDict);
     }
 }

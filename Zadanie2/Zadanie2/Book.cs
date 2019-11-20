@@ -12,6 +12,13 @@ namespace Zadanie1
 
         public Book(){}
 
+        public Book(string[] data, Dictionary<int, object> refObjectsDict)
+        {
+            Author = data[2];
+            Title = data[3];
+            this.KeyNumber = int.Parse(data[4]);
+        }
+
         public Book(string author, string title, int keyNumber)
         {
             this.Author = author;
@@ -41,14 +48,14 @@ namespace Zadanie1
             return hashCode;
         }
 
-        string ICSerializable.Serialize(ObjectIDGenerator gen)
+        string ICSerializable.Serialize(ObjectIDGenerator gen, char separator)
         {
             string result = "";
-            result += this.GetType().FullName + ',';
-            result += gen.GetId(this, out bool firstTime).ToString();
-            result += Author + ',';
-            result += Title + ',';
-            result += KeyNumber.ToString() + ',';
+            result += this.GetType().FullName + separator;
+            result += gen.GetId(this, out bool firstTime).ToString() + separator;
+            result += Author + separator;
+            result += Title + separator;
+            result += KeyNumber.ToString() + separator;
             return result;
         }
 

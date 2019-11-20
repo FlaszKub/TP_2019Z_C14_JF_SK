@@ -14,6 +14,14 @@ namespace Zadanie1
 
         public Event() {}
 
+        public Event(string[] data, Dictionary<int, object> refObjectsDict)
+        {
+            BookState = (BookState)refObjectsDict[int.Parse(data[2])];
+            Client = (Client)refObjectsDict[int.Parse(data[3])];
+            Date = DateTimeOffset.Parse(data[4]);
+            Quantity = int.Parse(data[5]);
+        }
+
         public Event(Client client, BookState bookState, DateTimeOffset date, int quantity)
         {
             this.Client = client;
@@ -46,15 +54,15 @@ namespace Zadanie1
             return hashCode;
         }
 
-        string ICSerializable.Serialize(ObjectIDGenerator gen)
+        string ICSerializable.Serialize(ObjectIDGenerator gen, char separator)
         {
             string result = "";
-            result += GetType().FullName + ',';
-            result += gen.GetId(this, out bool firstTime).ToString() + ',';
-            result += gen.GetId(BookState, out firstTime).ToString() + ',';
-            result += gen.GetId(Client, out firstTime).ToString() + ',';
-            result += Date.ToString() + ',';
-            result += Quantity + ',';
+            result += GetType().FullName + separator;
+            result += gen.GetId(this, out bool firstTime).ToString() + separator;
+            result += gen.GetId(BookState, out firstTime).ToString() + separator;
+            result += gen.GetId(Client, out firstTime).ToString() + separator;
+            result += Date.ToString() + separator;
+            result += Quantity.ToString() + separator;
             return result;
         }
 

@@ -11,6 +11,12 @@ namespace Zadanie1
         public string Id { get; set; }
 
         Client() {}
+        public Client(string[] data, Dictionary<int, object> refObjectsDict)
+        {
+            FirstName = data[2];
+            LastName = data[3];
+            Id = data[4];
+        }
 
         public Client(string firstName, string lastName, string id)
         {
@@ -41,14 +47,14 @@ namespace Zadanie1
             return hashCode;
         }
 
-        string ICSerializable.Serialize(ObjectIDGenerator gen)
+        string ICSerializable.Serialize(ObjectIDGenerator gen, char separator)
         {
             string result = "";
-            result += GetType().FullName + ',';
-            result += gen.GetId(this, out bool firstTime).ToString();
-            result += FirstName + ',';
-            result += LastName + ',';
-            result += Id + ',';
+            result += GetType().FullName + separator;
+            result += gen.GetId(this, out bool firstTime).ToString() + separator;
+            result += FirstName + separator;
+            result += LastName + separator;
+            result += Id.ToString() + separator;
             return result;
         }
 
