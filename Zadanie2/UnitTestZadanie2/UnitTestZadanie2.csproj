@@ -50,9 +50,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CustomSerializationTest.cs" />
+    <Compile Include="CircleSerializer.cs" />
+    <Compile Include="ClassA.cs" />
+    <Compile Include="ClassB.cs" />
     <Compile Include="FillTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="JsonSerializationTest.cs" />
+    <Compile Include="CircleSerializationTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
