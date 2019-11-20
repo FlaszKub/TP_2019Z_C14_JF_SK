@@ -1,7 +1,7 @@
 ﻿using System;
 using Zadanie1;
 
-namespace UnitTestZadanie2
+namespace ConsoleApp1
 {
     public class ConstantDataFiller
     {

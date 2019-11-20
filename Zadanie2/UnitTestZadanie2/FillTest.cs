@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using ConsoleApp1;
 using Zadanie1;
 
 namespace UnitTestZadanie2

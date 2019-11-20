@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Zadanie1;
 using Zadanie2;
+using ConsoleApp1;
 
 namespace UnitTestZadanie2
 {
