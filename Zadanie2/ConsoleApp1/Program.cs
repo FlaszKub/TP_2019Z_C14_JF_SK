@@ -58,7 +58,7 @@ namespace ConsoleApp1
                         dataContext = ConstantDataFiller.Fill();
                         break;
                     case 7:
-                        dataContext = ConstantDataFiller.Fill();
+                        dataContext = new DataContext();
                         break;
                     case 8:
                         break;
@@ -89,7 +89,7 @@ namespace ConsoleApp1
             Console.WriteLine("1. Import JSON");
             Console.WriteLine("2. Export JSON");
             Console.WriteLine("5. Wyswietl");
-            Console.WriteLine("6. Wypełnij dataContext");
+            Console.WriteLine("6. Wypełnij dataContext stałymi");
             Console.WriteLine("7. Wyczyść dataContext");
             Console.WriteLine("8. Wyjscie");
             Console.WriteLine("---------------------------");
