@@ -46,6 +46,8 @@
   <ItemGroup>
     <Compile Include="Book.cs" />
     <Compile Include="BookState.cs" />
+    <Compile Include="CustomSerializer.cs" />
+    <Compile Include="ICSerializable.cs" />
     <Compile Include="JsonSerializer.cs" />
     <Compile Include="Client.cs" />
     <Compile Include="DataContext.cs" />
