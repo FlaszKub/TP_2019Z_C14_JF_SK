@@ -20,16 +20,16 @@ namespace UnitTestZadanie2
             this.Description = des;
         }
 
-        public string Serialize(ObjectIDGenerator gen)
+        public string Serialize(ObjectIDGenerator gen, char separator)
         {
-            char separator = ',';
+            separator = ',';
             string result = this.GetType().FullName + separator
                     + gen.GetId(this, out bool classBTime) + separator
                     + Description + separator
                     + gen.GetId(ClassA, out bool classATime);
             if (classATime)
             {
-                    result += '>' + ClassA.Serialize(gen);
+                    result += '>' + ClassA.Serialize(gen, separator);
             }
             return result;
         }

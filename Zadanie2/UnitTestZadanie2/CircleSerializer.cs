@@ -13,7 +13,7 @@ namespace UnitTestZadanie2
         public void Serialize(ICSerializable serializable, Stream stream)
         {
             StreamWriter outputFile = new StreamWriter(stream);
-            outputFile.WriteLine(serializable.Serialize(gen));
+            outputFile.WriteLine(serializable.Serialize(gen,','));
             outputFile.Flush();
         }
 

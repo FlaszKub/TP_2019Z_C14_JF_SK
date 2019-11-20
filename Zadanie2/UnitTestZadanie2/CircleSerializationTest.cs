@@ -14,13 +14,13 @@ namespace UnitTestZadanie2
             ClassB b = new ClassB("Ala");
             a.ClassB = b;
             b.ClassA = a;
-            System.Console.WriteLine(a.Serialize(new System.Runtime.Serialization.ObjectIDGenerator()));
+            System.Console.WriteLine(a.Serialize(new System.Runtime.Serialization.ObjectIDGenerator(),','));
             CircleSerializer serializer = new CircleSerializer();
             MemoryStream ms = new MemoryStream();
             serializer.Serialize(a, ms);
             ms.Position = 0;
             ClassA deserlizedA = (ClassA)serializer.Deserialize(ms);
-            System.Console.WriteLine(deserlizedA.Serialize(new System.Runtime.Serialization.ObjectIDGenerator()));
+            System.Console.WriteLine(deserlizedA.Serialize(new System.Runtime.Serialization.ObjectIDGenerator(), ','));
             Assert.AreEqual<string>(a.Description, deserlizedA.Description);
         }
 
@@ -35,14 +35,14 @@ namespace UnitTestZadanie2
             b.ClassA = c;
             c.ClassB = d;
             d.ClassA = a;
-            System.Console.WriteLine(a.Serialize(new System.Runtime.Serialization.ObjectIDGenerator()));
+            System.Console.WriteLine(a.Serialize(new System.Runtime.Serialization.ObjectIDGenerator(), ','));
             Assert.AreEqual(a.ClassB.ClassA.ClassB.ClassA, a);
             CircleSerializer serializer = new CircleSerializer();
             MemoryStream ms = new MemoryStream();
             serializer.Serialize(a, ms);
             ms.Position = 0;
             ClassA deserlizedA = (ClassA)serializer.Deserialize(ms);
-            System.Console.WriteLine(deserlizedA.Serialize(new System.Runtime.Serialization.ObjectIDGenerator()));
+            System.Console.WriteLine(deserlizedA.Serialize(new System.Runtime.Serialization.ObjectIDGenerator(), ','));
             Assert.AreEqual(deserlizedA.ClassB.ClassA.ClassB.ClassA, deserlizedA);
         }
     }

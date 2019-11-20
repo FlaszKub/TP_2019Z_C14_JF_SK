@@ -21,9 +21,9 @@ namespace UnitTestZadanie2
 
         }
 
-        public string Serialize(ObjectIDGenerator gen)
+        public string Serialize(ObjectIDGenerator gen, char separator)
         {
-            char separator = ',';
+            separator = ',';
             string result = this.GetType().FullName + separator
                     + gen.GetId(this, out bool classATime) + separator
                     + Description + separator
@@ -31,7 +31,7 @@ namespace UnitTestZadanie2
                     + gen.GetId(ClassB,out bool classBTime);
             if (classBTime)
             {
-                result += '>' + ClassB.Serialize(gen);
+                result += '>' + ClassB.Serialize(gen, ',');
             }
             return result;
         }
