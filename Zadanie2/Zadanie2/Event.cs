@@ -1,14 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
+using Zadanie2;
 
 namespace Zadanie1
 {
-    public abstract class Event
+    public abstract class Event : ICSerializable
     {
         public BookState BookState { get; set; }
         public Client Client { get; set; }
         public DateTimeOffset Date { get; set; }
         public int Quantity { get; set; }
+
+        public Event() {}
 
         public Event(Client client, BookState bookState, DateTimeOffset date, int quantity)
         {
@@ -40,6 +44,26 @@ namespace Zadanie1
             hashCode = hashCode * -1521134295 + EqualityComparer<DateTimeOffset>.Default.GetHashCode(Date);
             hashCode = hashCode * -1521134295 + Quantity.GetHashCode();
             return hashCode;
+        }
+
+        string ICSerializable.Serialize(ObjectIDGenerator gen)
+        {
+            string result = "";
+            result += GetType().FullName + ',';
+            result += gen.GetId(this, out bool firstTime).ToString() + ',';
+            result += gen.GetId(BookState, out firstTime).ToString() + ',';
+            result += gen.GetId(Client, out firstTime).ToString() + ',';
+            result += Date.ToString() + ',';
+            result += Quantity + ',';
+            return result;
+        }
+
+        void ICSerializable.Deserialize(string[] data, Dictionary<int, object> refObjectsDict)
+        {
+            BookState = (BookState)refObjectsDict[int.Parse(data[2])];
+            Client = (Client)refObjectsDict[int.Parse(data[3])];
+            Date = DateTimeOffset.Parse(data[4]);
+            Quantity = int.Parse(data[5]);
         }
     }
 }

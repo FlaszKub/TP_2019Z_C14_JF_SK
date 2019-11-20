@@ -1,12 +1,16 @@
 ﻿using System.Collections.Generic;
+using System.Runtime.Serialization;
+using Zadanie2;
 
 namespace Zadanie1
 {
-    public class Client
+    public class Client : ICSerializable
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Id { get; set; }
+
+        Client() {}
 
         public Client(string firstName, string lastName, string id)
         {
@@ -35,6 +39,24 @@ namespace Zadanie1
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(LastName);
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Id);
             return hashCode;
+        }
+
+        string ICSerializable.Serialize(ObjectIDGenerator gen)
+        {
+            string result = "";
+            result += GetType().FullName + ',';
+            result += gen.GetId(this, out bool firstTime).ToString();
+            result += FirstName + ',';
+            result += LastName + ',';
+            result += Id + ',';
+            return result;
+        }
+
+        void ICSerializable.Deserialize(string[] data, Dictionary<int, object> refObjectsDict)
+        {
+            FirstName = data[2];
+            LastName = data[3];
+            Id = data[4];
         }
     }
 }

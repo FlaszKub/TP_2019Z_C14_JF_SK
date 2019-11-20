@@ -1,14 +1,18 @@
 ﻿using System.Collections.Generic;
+using System.Runtime.Serialization;
+using Zadanie2;
 
 namespace Zadanie1
 {
-    public class BookState
+    public class BookState : ICSerializable
     {
         public Book Book { get; set; }
         public int Quantity { get; set; }
         public float NetPrice { get; set; }
         public int Tax { get; set; }
         public string Id { get; set; }
+
+        public BookState() { }
 
         public BookState(Book book, int quantity, float netPrice, int tax, string id)
         {
@@ -43,6 +47,30 @@ namespace Zadanie1
             hashCode = hashCode * -1521134295 + Tax.GetHashCode();
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Id);
             return hashCode;
+        }
+
+        string ICSerializable.Serialize(ObjectIDGenerator gen)
+        {
+            string result = "";
+            result += GetType().FullName + ',';
+            result += gen.GetId(this, out bool firstTime).ToString();
+            result += gen.GetId(Book, out firstTime).ToString();
+            result += Quantity + ',';
+            result += NetPrice + ',';
+            result += Tax + ',';
+            result += Id + ',';
+            return result;
+            
+        }
+
+        void ICSerializable.Deserialize(string[] data, Dictionary<int, object> refObjectsDict)
+        {
+            Book = (Book)refObjectsDict[int.Parse(data[2])];
+            Quantity = int.Parse(data[3]);
+            NetPrice = float.Parse(data[4]);
+            Tax = int.Parse(data[5]);
+            Id = data[6];
+
         }
     }
 }
