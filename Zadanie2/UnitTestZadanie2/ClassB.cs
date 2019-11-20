@@ -14,12 +14,11 @@ namespace UnitTestZadanie2
 
         public ClassB()
         {
-            this.Description = "des 2";
+            this.Description = "Opis 2";
         }
 
         public string Serialize(ObjectIDGenerator gen, char separator)
         {
-            separator = ',';
             string result = this.GetType().FullName + separator
                     + gen.GetId(this, out bool classBTime) + separator
                     + Description + separator

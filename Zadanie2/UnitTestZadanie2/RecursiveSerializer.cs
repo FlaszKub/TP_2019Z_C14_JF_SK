@@ -5,7 +5,7 @@ using Zadanie2;
 
 namespace UnitTestZadanie2
 {
-    class CircleSerializer
+    class RecursiveSerializer
     {
         ObjectIDGenerator gen = new ObjectIDGenerator();
         char separator = ',';
