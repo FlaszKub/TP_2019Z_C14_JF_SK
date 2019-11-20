@@ -12,7 +12,7 @@ namespace ConsoleApp1
         {
             DataContext dataContext = new DataContext();
             JsonSerializer jsonSerializer = new JsonSerializer();
-
+            CustomSerializer csvSerializer = new CustomSerializer();
 
             int wybor = 0;
             string path = "";
@@ -30,7 +30,8 @@ namespace ConsoleApp1
                         try
                         {
                             dataContext = jsonSerializer.DeserializeToDataContext(path);
-                        } catch (FileNotFoundException)
+                        }
+                        catch (FileNotFoundException)
                         {
                             Console.WriteLine("Nie odnaleziono pliku");
                             break;
@@ -41,7 +42,27 @@ namespace ConsoleApp1
                         Console.WriteLine("podaj ścierzkę do pliku");
                         path = Console.ReadLine();
                         jsonSerializer.Serialize(dataContext, path);
+                        Console.WriteLine("Export json done");
+                        break;
+                    case 3:
+                        Console.WriteLine("podaj ścierzkę do pliku");
+                        path = Console.ReadLine();
+                        try
+                        {
+                            dataContext = csvSerializer.Deserialize(path);
+                        }
+                        catch (FileNotFoundException)
+                        {
+                            Console.WriteLine("Nie odnaleziono pliku");
+                            break;
+                        }
                         Console.WriteLine("Import csv done");
+                        break;
+                    case 4:
+                        Console.WriteLine("podaj ścierzkę do pliku");
+                        path = Console.ReadLine();
+                        csvSerializer.Serialize(dataContext, path);
+                        Console.WriteLine("Export csv done");
                         break;
                     case 5:
 
@@ -77,7 +98,8 @@ namespace ConsoleApp1
         private static string printAsString<T>(String listName, IEnumerable<T> list)
         {
             string line = listName + ": \n";
-            foreach(T d in list){
+            foreach (T d in list)
+            {
                 line += d.ToString() + "\n";
             }
             return line;
@@ -88,6 +110,8 @@ namespace ConsoleApp1
             Console.WriteLine("Witaj w programie (zad2) Import/Export. Co chcesz zrobić ?");
             Console.WriteLine("1. Import JSON");
             Console.WriteLine("2. Export JSON");
+            Console.WriteLine("3. Import CSV(Own Serialization)");
+            Console.WriteLine("4. Export CSV(Own Serialization)");
             Console.WriteLine("5. Wyswietl");
             Console.WriteLine("6. Wypełnij dataContext stałymi");
             Console.WriteLine("7. Wyczyść dataContext");
