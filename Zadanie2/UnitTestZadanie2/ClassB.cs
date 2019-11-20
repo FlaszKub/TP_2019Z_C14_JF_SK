@@ -10,14 +10,11 @@ namespace UnitTestZadanie2
         public ClassA ClassA { get; set; }
         public string Description { get; set; }
 
+
+
         public ClassB()
         {
-
-        }
-
-        public ClassB(string des)
-        {
-            this.Description = des;
+            this.Description = "des 2";
         }
 
         public string Serialize(ObjectIDGenerator gen, char separator)
@@ -36,7 +33,6 @@ namespace UnitTestZadanie2
 
         public void Deserialize(string[] data, Dictionary<int, object> refObjectsDict)
         {
-            this.Description = data[2];
             this.ClassA = (ClassA)refObjectsDict[int.Parse(data[3])];
         }
 

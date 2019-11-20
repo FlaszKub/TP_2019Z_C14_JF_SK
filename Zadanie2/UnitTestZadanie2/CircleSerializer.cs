@@ -42,7 +42,7 @@ namespace UnitTestZadanie2
                             case "UnitTestZadanie2.ClassA":
                                 ClassA a = (ClassA)refObjectsDict[int.Parse(detailsFirstObj[1])];
                                 a.Deserialize(detailsFirstObj, refObjectsDict);
-                                ((ClassB)refObjectsDict[int.Parse(detailsFirstObj[4])]).Deserialize(detailsRefObj, refObjectsDict);
+                                ((ClassB)refObjectsDict[int.Parse(detailsFirstObj[3])]).Deserialize(detailsRefObj, refObjectsDict);
                                 temp = a;
                                 break;
 

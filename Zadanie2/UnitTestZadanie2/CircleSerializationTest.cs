@@ -10,8 +10,8 @@ namespace UnitTestZadanie2
         [TestMethod]
         public void TestMethod1()
         {
-            ClassA a = new ClassA("Dupa", 5);
-            ClassB b = new ClassB("Ala");
+            ClassA a = new ClassA();
+            ClassB b = new ClassB();
             a.ClassB = b;
             b.ClassA = a;
             System.Console.WriteLine(a.Serialize(new System.Runtime.Serialization.ObjectIDGenerator(),','));
@@ -27,10 +27,10 @@ namespace UnitTestZadanie2
         [TestMethod]
         public void TestMethod2()
         {
-            ClassA a = new ClassA("A", 1);
-            ClassB b = new ClassB("B");
-            ClassA c = new ClassA("C", 2);
-            ClassB d = new ClassB("D");
+            ClassA a = new ClassA();
+            ClassB b = new ClassB();
+            ClassA c = new ClassA();
+            ClassB d = new ClassB();
             a.ClassB = b;
             b.ClassA = c;
             c.ClassB = d;
