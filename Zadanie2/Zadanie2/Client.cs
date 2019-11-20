@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Runtime.Serialization;
+using System.Text;
 using Zadanie2;
 
 namespace Zadanie1
@@ -10,7 +11,8 @@ namespace Zadanie1
         public string LastName { get; set; }
         public string Id { get; set; }
 
-        Client() {}
+        public Client() { }
+
         public Client(string[] data, Dictionary<int, object> refObjectsDict)
         {
             FirstName = data[2];
@@ -49,20 +51,18 @@ namespace Zadanie1
 
         string ICSerializable.Serialize(ObjectIDGenerator gen, char separator)
         {
-            string result = "";
-            result += GetType().FullName + separator;
-            result += gen.GetId(this, out bool firstTime).ToString() + separator;
-            result += FirstName + separator;
-            result += LastName + separator;
-            result += Id.ToString() + separator;
-            return result;
-        }
-
-        void ICSerializable.Deserialize(string[] data, Dictionary<int, object> refObjectsDict)
-        {
-            FirstName = data[2];
-            LastName = data[3];
-            Id = data[4];
+            StringBuilder result = new StringBuilder();
+            result.Append(GetType().FullName);
+            result.Append(separator);
+            result.Append(gen.GetId(this, out bool firstTime).ToString());
+            result.Append(separator);
+            result.Append(FirstName);
+            result.Append(separator);
+            result.Append(LastName);
+            result.Append(separator);
+            result.Append(Id.ToString());
+            result.Append(separator);
+            return result.ToString();
         }
     }
 }

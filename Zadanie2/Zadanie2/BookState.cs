@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Runtime.Serialization;
+using System.Text;
 using Zadanie2;
 
 namespace Zadanie1
@@ -61,26 +62,23 @@ namespace Zadanie1
 
         string ICSerializable.Serialize(ObjectIDGenerator gen, char separator)
         {
-            string result = "";
-            result += GetType().FullName + separator;
-            result += gen.GetId(this, out bool firstTime).ToString() + separator;
-            result += gen.GetId(Book, out firstTime).ToString() + separator;
-            result += Quantity.ToString() + separator;            
-            result += Tax.ToString() + separator;
-            result += Id.ToString() + separator;
-            result += NetPrice.ToString() + separator;
-            return result;
+            StringBuilder result = new StringBuilder();
+            result.Append(GetType().FullName);
+            result.Append(separator);
+            result.Append(gen.GetId(this, out bool firstTime).ToString());
+            result.Append(separator);
+            result.Append(gen.GetId(Book, out firstTime).ToString());
+            result.Append(separator);
+            result.Append(Quantity.ToString());
+            result.Append(separator);
+            result.Append(Tax.ToString());
+            result.Append(separator);
+            result.Append(Id.ToString());
+            result.Append(separator);
+            result.Append(NetPrice.ToString());
+            result.Append(separator);
+            return result.ToString();
             
-        }
-
-        void ICSerializable.Deserialize(string[] data, Dictionary<int, object> refObjectsDict)
-        {
-            Book = (Book)refObjectsDict[int.Parse(data[2])];
-            Quantity = int.Parse(data[3]);
-            NetPrice = float.Parse(data[4]);
-            Tax = int.Parse(data[5]);
-            Id = data[6];
-
         }
     }
 }

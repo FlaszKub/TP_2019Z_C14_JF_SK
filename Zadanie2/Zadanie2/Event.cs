@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
+using System.Text;
 using Zadanie2;
 
 namespace Zadanie1
@@ -12,7 +13,7 @@ namespace Zadanie1
         public DateTimeOffset Date { get; set; }
         public int Quantity { get; set; }
 
-        public Event() {}
+        public Event() { }
 
         public Event(string[] data, Dictionary<int, object> refObjectsDict)
         {
@@ -56,22 +57,20 @@ namespace Zadanie1
 
         string ICSerializable.Serialize(ObjectIDGenerator gen, char separator)
         {
-            string result = "";
-            result += GetType().FullName + separator;
-            result += gen.GetId(this, out bool firstTime).ToString() + separator;
-            result += gen.GetId(BookState, out firstTime).ToString() + separator;
-            result += gen.GetId(Client, out firstTime).ToString() + separator;
-            result += Date.ToString() + separator;
-            result += Quantity.ToString() + separator;
-            return result;
-        }
-
-        void ICSerializable.Deserialize(string[] data, Dictionary<int, object> refObjectsDict)
-        {
-            BookState = (BookState)refObjectsDict[int.Parse(data[2])];
-            Client = (Client)refObjectsDict[int.Parse(data[3])];
-            Date = DateTimeOffset.Parse(data[4]);
-            Quantity = int.Parse(data[5]);
+            StringBuilder result = new StringBuilder();
+            result.Append(GetType().FullName);
+            result.Append(separator);
+            result.Append(gen.GetId(this, out bool firstTime).ToString());
+            result.Append(separator);
+            result.Append(gen.GetId(BookState, out firstTime).ToString());
+            result.Append(separator);
+            result.Append(gen.GetId(Client, out firstTime).ToString());
+            result.Append(separator);
+            result.Append(Date.ToString());
+            result.Append(separator);
+            result.Append(Quantity.ToString());
+            result.Append(separator);
+            return result.ToString();
         }
     }
 }

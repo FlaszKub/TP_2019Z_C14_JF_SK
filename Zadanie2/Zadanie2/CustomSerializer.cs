@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization;
+using System.Text;
 using Zadanie1;
 
 namespace Zadanie2
@@ -12,12 +13,12 @@ namespace Zadanie2
         public CustomSerializer(){ }
         public void Serialize(DataContext dataContext, String path) {
             ObjectIDGenerator gen = new ObjectIDGenerator();
-            string Serialized = SerializeToString(dataContext, gen);
+            string serialized = SerializeToString(dataContext, gen);
             using (FileStream fs = new FileStream(path, FileMode.OpenOrCreate))
             {
                 using (StreamWriter output = new StreamWriter(fs))
                 {
-                    output.WriteLine(Serialized);
+                    output.WriteLine(serialized);
                 }
             }
         }
@@ -78,19 +79,23 @@ namespace Zadanie2
 
         private string SerializeToString(DataContext dataContext, ObjectIDGenerator gen)
         {
-            System.Text.StringBuilder result = new System.Text.StringBuilder();
+            StringBuilder result = new StringBuilder();
             foreach (ICSerializable book in dataContext.books) {
-                result.Append(book.Serialize(gen, separator) + "\n");
+                result.Append(book.Serialize(gen, separator));
+                result.Append("\n");
             }
             foreach (ICSerializable bookState in dataContext.bookStates) {
-                result.Append(bookState.Serialize(gen, separator) + "\n");
+                result.Append(bookState.Serialize(gen, separator));
+                result.Append("\n");
             }
             foreach (ICSerializable client in dataContext.clients)
             {
-                result.Append(client.Serialize(gen, separator) + "\n");
+                result.Append(client.Serialize(gen, separator));
+                result.Append("\n");
             }
             foreach (ICSerializable _event in dataContext.events) {
-                result.Append(_event.Serialize(gen, separator) + "\n");
+                result.Append(_event.Serialize(gen, separator));
+                result.Append("\n");
             }
             return result.ToString();
         }
