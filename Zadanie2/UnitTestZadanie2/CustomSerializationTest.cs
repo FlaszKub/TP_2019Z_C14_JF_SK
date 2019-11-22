@@ -3,6 +3,9 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Zadanie1;
 using Zadanie2;
 using ConsoleApp1;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Soap;
+using System.IO;
 
 namespace UnitTestZadanie2
 {
@@ -12,8 +15,13 @@ namespace UnitTestZadanie2
         [TestMethod]
         public void TestWholeDataContextSerialization()
         {
+            
             string path = "./test7.csv";
             DataContext context = ConstantDataFiller.Fill();
+            FileStream WriteStream = new FileStream("test2.xml", FileMode.Create);
+            SoapFormatter soapformatter = new SoapFormatter();
+            soapformatter.Serialize(WriteStream, context);
+            WriteStream.Close();
             CustomSerializer serializer = new CustomSerializer();
             serializer.Serialize(context, path);
             DataContext deserializedContext = serializer.Deserialize(path);
