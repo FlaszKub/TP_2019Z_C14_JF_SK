@@ -18,10 +18,6 @@ namespace UnitTestZadanie2
             
             string path = "./test7.csv";
             DataContext context = ConstantDataFiller.Fill();
-            FileStream WriteStream = new FileStream("test2.xml", FileMode.Create);
-            SoapFormatter soapformatter = new SoapFormatter();
-            soapformatter.Serialize(WriteStream, context);
-            WriteStream.Close();
             CustomSerializer serializer = new CustomSerializer();
             serializer.Serialize(context, path);
             DataContext deserializedContext = serializer.Deserialize(path);

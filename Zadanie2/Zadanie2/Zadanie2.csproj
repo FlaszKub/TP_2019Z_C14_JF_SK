@@ -47,12 +47,16 @@
   <ItemGroup>
     <Compile Include="Book.cs" />
     <Compile Include="BookState.cs" />
+    <Compile Include="ClassA.cs" />
+    <Compile Include="ClassB.cs" />
+    <Compile Include="ClassC.cs" />
     <Compile Include="CustomSerializer.cs" />
     <Compile Include="ICSerializable.cs" />
     <Compile Include="JsonSerializer.cs" />
     <Compile Include="Client.cs" />
     <Compile Include="DataContext.cs" />
     <Compile Include="Event.cs" />
+    <Compile Include="MyFormatter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Purchase.cs" />
     <Compile Include="Sale.cs" />

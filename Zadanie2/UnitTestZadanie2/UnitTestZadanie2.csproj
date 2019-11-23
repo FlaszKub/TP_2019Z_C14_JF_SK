@@ -51,9 +51,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CustomSerializationTest.cs" />
+    <Compile Include="NewCustomSerializationTest.cs" />
     <Compile Include="RecursiveSerializer.cs" />
-    <Compile Include="ClassA.cs" />
-    <Compile Include="ClassB.cs" />
     <Compile Include="FillTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="JsonSerializationTest.cs" />
