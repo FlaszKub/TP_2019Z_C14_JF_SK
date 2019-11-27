@@ -12,7 +12,6 @@ namespace ConsoleApp1
         {
             DataContext dataContext = new DataContext();
             JsonSerializer jsonSerializer = new JsonSerializer();
-            CustomSerializer csvSerializer = new CustomSerializer();
 
             int wybor = 0;
             string path = "";
@@ -49,7 +48,7 @@ namespace ConsoleApp1
                         path = Console.ReadLine();
                         try
                         {
-                            dataContext = csvSerializer.Deserialize(path);
+                            
                         }
                         catch (FileNotFoundException)
                         {
@@ -61,7 +60,6 @@ namespace ConsoleApp1
                     case 4:
                         Console.WriteLine("podaj ścierzkę do pliku");
                         path = Console.ReadLine();
-                        csvSerializer.Serialize(dataContext, path);
                         Console.WriteLine("Export csv done");
                         break;
                     case 5:

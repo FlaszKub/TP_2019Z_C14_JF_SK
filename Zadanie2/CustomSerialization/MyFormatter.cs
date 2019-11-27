@@ -2,19 +2,17 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
-using System.Linq;
 using System.Reflection;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
-namespace Zadanie2
+namespace CustomSerialization
 {
-    public class MyFormatter : Formatter
+    public class MyFormatter : FormatterAdapter
     {
         public override ISurrogateSelector SurrogateSelector { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public override SerializationBinder Binder { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public override SerializationBinder Binder { get; set; }
         public override StreamingContext Context { get; set; }
         private StringBuilder builder;
         private CultureInfo culture = CultureInfo.InvariantCulture;
@@ -23,6 +21,7 @@ namespace Zadanie2
         public MyFormatter() : base()
         {
             builder = new StringBuilder();
+            Binder = new MySerializationBinder();
 
         }
         private Dictionary<string, object> deserializedObjects = new Dictionary<string, object>();
@@ -35,25 +34,27 @@ namespace Zadanie2
             object graph;
             object obj;
             string line;
-            string[] dataLine = new string[2];
+            string[] dataLine = new string[3];
             string[] keyValue = new string[2];
-            string[] reference = new string[2];            
+            string[] reference = new string[2];
             SerializationInfo info;
             Type type;
-            using(StreamReader reader = new StreamReader(serializationStream))
+            using (StreamReader reader = new StreamReader(serializationStream))
             {
                 line = reader.ReadLine();
                 dataLine = line.Split(';');
-                type = Type.GetType(dataLine[1]);
-                info = new SerializationInfo(type, new FormatterConverter());
+                type = Binder.BindToType(dataLine[2], dataLine[1]);
+                info = new SerializationInfo(type.GetType(), new FormatterConverter());
                 graph = FormatterServices.GetSafeUninitializedObject(type);
                 deserializedObjects.Add(dataLine[0], graph);
                 deserializedInfo.Add(dataLine[0], info);
-                while ((line = reader.ReadLine()) != "##") {
+                while ((line = reader.ReadLine()) != "##")
+                {
                     dataLine = line.Split(';');
                     type = Type.GetType(dataLine[1]);
                     if (Regex.IsMatch(dataLine[0], @"^href[$]\d*"))
                     {
+                        type = Binder.BindToType(dataLine[2], dataLine[1]);
                         info = new SerializationInfo(type, new FormatterConverter());
                         deserializedInfo.Add(dataLine[0], info);
                         if (!deserializedObjects.ContainsKey(dataLine[0]))
@@ -65,8 +66,9 @@ namespace Zadanie2
                     else
                     {
                         keyValue = dataLine[0].Split('=');
-                        if(Regex.IsMatch(keyValue[1], @"^href[$]\d*"))
+                        if (Regex.IsMatch(keyValue[1], @"^href[$]\d*"))
                         {
+                            type = Binder.BindToType(dataLine[2], dataLine[1]);
                             if (!deserializedObjects.ContainsKey(keyValue[1]))
                             {
                                 obj = FormatterServices.GetSafeUninitializedObject(type);
@@ -98,10 +100,11 @@ namespace Zadanie2
             Type[] argumentTypes = new Type[2];
             argumentTypes[0] = typeof(SerializationInfo);
             argumentTypes[1] = typeof(StreamingContext);
-            foreach (string key in deserializedInfo.Keys) {
-                objectType = deserializedObjects[key].GetType();                
+            foreach (string key in deserializedInfo.Keys)
+            {
+                objectType = deserializedObjects[key].GetType();
                 ConstructorInfo constructor = objectType.GetConstructor(argumentTypes);
-                constructor.Invoke(deserializedObjects[key], new object[] { deserializedInfo[key], Context});
+                constructor.Invoke(deserializedObjects[key], new object[] { deserializedInfo[key], Context });
 
             }
             return graph;
@@ -111,16 +114,17 @@ namespace Zadanie2
         {
             Schedule(graph);
             object obj;
-            while((obj = GetNext(out long objID))!=null)
+            while ((obj = GetNext(out long objID)) != null)
             {
-                builder.Append("href$" + objID.ToString(culture) + ";" + obj.GetType().ToString() + "\n");
+                Binder.BindToName(obj.GetType(), out string assemblyName, out string typeName);
+                builder.Append("href$" + objID.ToString(culture) + ";" + typeName + ';' + assemblyName + "\n");
                 ISerializable _data = (ISerializable)obj;
                 SerializationInfo _info = new SerializationInfo(obj.GetType(), new FormatterConverter());
                 StreamingContext _context = new StreamingContext(StreamingContextStates.File);
                 _data.GetObjectData(_info, _context);
                 foreach (SerializationEntry _item in _info)
                     this.WriteMember(_item.Name, _item.Value);
-                
+
 
             }
             builder.Append("##");
@@ -130,101 +134,26 @@ namespace Zadanie2
             }
         }
 
-        protected override void WriteArray(object obj, string name, Type memberType)
-        {
-            throw new NotImplementedException();
-        }
-
-        protected override void WriteBoolean(bool val, string name)
-        {
-            throw new NotImplementedException();
-        }
-
-        protected override void WriteByte(byte val, string name)
-        {
-            throw new NotImplementedException();
-        }
-
-        protected override void WriteChar(char val, string name)
-        {
-            throw new NotImplementedException();
-        }
-
         protected override void WriteDateTime(DateTime val, string name)
         {
             builder.Append(name + '=' + val.ToString(culture) + ';' + typeof(DateTime).ToString() + "\n");
         }
 
-        protected override void WriteDecimal(decimal val, string name)
-        {
-            throw new NotImplementedException();
-        }
-
-        protected override void WriteDouble(double val, string name)
-        {
-            throw new NotImplementedException();
-        }
-
-        protected override void WriteInt16(short val, string name)
-        {
-            throw new NotImplementedException();
-        }
-
-        protected override void WriteInt32(int val, string name)
-        {
-            throw new NotImplementedException();
-        }
-
-        protected override void WriteInt64(long val, string name)
-        {
-            throw new NotImplementedException();
-        }
-
         protected override void WriteObjectRef(object obj, string name, Type memberType)
         {
-            if(memberType.ToString() == "System.String")
-                builder.Append(name + '=' + (string)obj + ';' + memberType.ToString() + "\n");
+            Binder.BindToName(obj.GetType(), out string assemblyName, out string typeName);
+            if (memberType.ToString() == "System.String")
+                builder.Append(name + '=' + (string)obj + ';' + typeName + "\n");
             else
             {
                 long id = Schedule(obj);
-                builder.Append(name + '=' + "href$"+ id.ToString(culture) + ';' + memberType.ToString() + "\n");
+                builder.Append(name + '=' + "href$" + id.ToString(culture) + ";" + typeName + ';' + assemblyName + "\n");
             }
-            
-        }
 
-        protected override void WriteSByte(sbyte val, string name)
-        {
-            throw new NotImplementedException();
         }
-
         protected override void WriteSingle(float val, string name)
         {
             builder.Append(name + '=' + val.ToString(culture) + ';' + typeof(float).ToString() + "\n");
-        }
-
-        protected override void WriteTimeSpan(TimeSpan val, string name)
-        {
-            throw new NotImplementedException();
-        }
-
-        protected override void WriteUInt16(ushort val, string name)
-        {
-            throw new NotImplementedException();
-        }
-
-        protected override void WriteUInt32(uint val, string name)
-        {
-            throw new NotImplementedException();
-        }
-
-        protected override void WriteUInt64(ulong val, string name)
-        {
-            throw new NotImplementedException();
-        }
-
-        protected override void WriteValueType(object obj, string name, Type memberType)
-        {
-            throw new NotImplementedException();
         }
     }
 }

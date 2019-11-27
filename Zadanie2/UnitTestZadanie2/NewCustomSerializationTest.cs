@@ -5,6 +5,7 @@ using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Soap;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Zadanie2;
+using CustomSerialization;
 namespace UnitTestZadanie2
 {
     [TestClass]

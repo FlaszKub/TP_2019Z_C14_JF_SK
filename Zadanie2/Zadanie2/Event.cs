@@ -6,22 +6,12 @@ using Zadanie2;
 
 namespace Zadanie1
 {
-    public abstract class Event : ICSerializable
+    public abstract class Event
     {
         public BookState BookState { get; set; }
         public Client Client { get; set; }
         public DateTimeOffset Date { get; set; }
         public int Quantity { get; set; }
-
-        public Event() { }
-
-        public Event(string[] data, Dictionary<int, object> refObjectsDict)
-        {
-            BookState = (BookState)refObjectsDict[int.Parse(data[2])];
-            Client = (Client)refObjectsDict[int.Parse(data[3])];
-            Date = DateTimeOffset.Parse(data[4]);
-            Quantity = int.Parse(data[5]);
-        }
 
         public Event(Client client, BookState bookState, DateTimeOffset date, int quantity)
         {
@@ -53,24 +43,6 @@ namespace Zadanie1
             hashCode = hashCode * -1521134295 + EqualityComparer<DateTimeOffset>.Default.GetHashCode(Date);
             hashCode = hashCode * -1521134295 + Quantity.GetHashCode();
             return hashCode;
-        }
-
-        string ICSerializable.Serialize(ObjectIDGenerator gen, char separator)
-        {
-            StringBuilder result = new StringBuilder();
-            result.Append(GetType().FullName);
-            result.Append(separator);
-            result.Append(gen.GetId(this, out bool firstTime).ToString());
-            result.Append(separator);
-            result.Append(gen.GetId(BookState, out firstTime).ToString());
-            result.Append(separator);
-            result.Append(gen.GetId(Client, out firstTime).ToString());
-            result.Append(separator);
-            result.Append(Date.ToString());
-            result.Append(separator);
-            result.Append(Quantity.ToString());
-            result.Append(separator);
-            return result.ToString();
         }
     }
 }

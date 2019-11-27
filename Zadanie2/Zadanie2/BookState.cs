@@ -5,25 +5,13 @@ using Zadanie2;
 
 namespace Zadanie1
 {
-    public class BookState : ICSerializable
+    public class BookState
     {
         public Book Book { get; set; }
         public int Quantity { get; set; }
         public float NetPrice { get; set; }
         public int Tax { get; set; }
         public string Id { get; set; }
-
-        public BookState() { }
-
-        public BookState(string[] data, Dictionary<int, object> refObjectsDict)
-        {
-            Book = (Book)refObjectsDict[int.Parse(data[2])];
-            Quantity = int.Parse(data[3]);          
-            Tax = int.Parse(data[4]);
-            Id = data[5];
-            NetPrice = float.Parse(data[6]);
-
-        }
 
         public BookState(Book book, int quantity, float netPrice, int tax, string id)
         {
@@ -58,27 +46,6 @@ namespace Zadanie1
             hashCode = hashCode * -1521134295 + Tax.GetHashCode();
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Id);
             return hashCode;
-        }
-
-        string ICSerializable.Serialize(ObjectIDGenerator gen, char separator)
-        {
-            StringBuilder result = new StringBuilder();
-            result.Append(GetType().FullName);
-            result.Append(separator);
-            result.Append(gen.GetId(this, out bool firstTime).ToString());
-            result.Append(separator);
-            result.Append(gen.GetId(Book, out firstTime).ToString());
-            result.Append(separator);
-            result.Append(Quantity.ToString());
-            result.Append(separator);
-            result.Append(Tax.ToString());
-            result.Append(separator);
-            result.Append(Id.ToString());
-            result.Append(separator);
-            result.Append(NetPrice.ToString());
-            result.Append(separator);
-            return result.ToString();
-            
         }
     }
 }
