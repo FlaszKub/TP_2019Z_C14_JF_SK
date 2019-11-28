@@ -43,27 +43,7 @@ namespace ConsoleApp1
                         jsonSerializer.Serialize(dataContext, path);
                         Console.WriteLine("Export json done");
                         break;
-                    case 3:
-                        Console.WriteLine("podaj ścierzkę do pliku");
-                        path = Console.ReadLine();
-                        try
-                        {
-                            
-                        }
-                        catch (FileNotFoundException)
-                        {
-                            Console.WriteLine("Nie odnaleziono pliku");
-                            break;
-                        }
-                        Console.WriteLine("Import csv done");
-                        break;
-                    case 4:
-                        Console.WriteLine("podaj ścierzkę do pliku");
-                        path = Console.ReadLine();
-                        Console.WriteLine("Export csv done");
-                        break;
                     case 5:
-
                         Console.WriteLine();
                         Console.WriteLine(printAsString("Books", dataContext.books));
                         Console.WriteLine();
@@ -108,8 +88,6 @@ namespace ConsoleApp1
             Console.WriteLine("Witaj w programie (zad2) Import/Export. Co chcesz zrobić ?");
             Console.WriteLine("1. Import JSON");
             Console.WriteLine("2. Export JSON");
-            Console.WriteLine("3. Import CSV(Own Serialization)");
-            Console.WriteLine("4. Export CSV(Own Serialization)");
             Console.WriteLine("5. Wyswietl");
             Console.WriteLine("6. Wypełnij dataContext stałymi");
             Console.WriteLine("7. Wyczyść dataContext");
