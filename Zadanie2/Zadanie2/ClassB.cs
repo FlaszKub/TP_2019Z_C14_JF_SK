@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 namespace Zadanie2
@@ -22,7 +23,7 @@ namespace Zadanie2
         {
             Name = info.GetString("name");
             Date = info.GetDateTime("date");
-            Num = (float)info.GetDouble("num");
+            Num = info.GetSingle("num");
             ClassA = (ClassA)info.GetValue("classA", typeof(ClassA));
             ClassC = (ClassC)info.GetValue("classC", typeof(ClassC));
 
