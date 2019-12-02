@@ -26,12 +26,11 @@ namespace Zadanie3.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\sewer\\Documents\\TP_2" +
-            "019Z_C14_JF_SK\\Zadanie3\\UnitTestZadanie3\\database\\AdventureWorks2014_Data.mdf;In" +
-            "tegrated Security=True;Connect Timeout=30")]
-        public string AdventureWorks2014_DataConnectionString {
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=localhost;Initial Catalog=AdventureWorks2014;Integrated Security=True" +
+            "")]
+        public string AdventureWorks2014ConnectionString {
             get {
-                return ((string)(this["AdventureWorks2014_DataConnectionString"]));
+                return ((string)(this["AdventureWorks2014ConnectionString"]));
             }
         }
     }
