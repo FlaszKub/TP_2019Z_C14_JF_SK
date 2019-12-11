@@ -60,11 +60,10 @@ namespace Zadanie3
         public static List<Product> GetNRecentlyReviewedProducts(int howManyProducts)
         {
             ProductionDataContext db = new ProductionDataContext();
-            return new List<Product>((from product in db.Products
-                                      join review in db.ProductReviews
-                                      on product.ProductID equals review.ProductID
+            return new List<Product>((from  review in db.ProductReviews                                     
                                       orderby review.ReviewDate descending
-                                      select product).Take(howManyProducts)
+                                      group review.Product by review.ProductID into g
+                                      select g.First()).Take(howManyProducts)
                                     );
         }
 
@@ -78,11 +77,11 @@ namespace Zadanie3
                                        );
         }
 
-        public static int GetTotalStandardCostByCategory(string categoryName)
+        public static int GetTotalStandardCostByCategory(ProductCategory category)
         {
             ProductionDataContext db = new ProductionDataContext();
             return (int)(from product in db.Products
-                         where product.ProductSubcategory.ProductCategory.Name == categoryName
+                         where product.ProductSubcategory.ProductCategory.Name == category.Name
                          select product.StandardCost).Sum();
         }
     }
