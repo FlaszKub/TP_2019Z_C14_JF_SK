@@ -86,7 +86,7 @@ namespace UnitTestZadanie3
             Assert.AreEqual(list.Count, 3);
             Assert.AreEqual(list[0].ProductID, 937);
             Assert.AreEqual(list[1].ProductID, 798);
-            Assert.AreEqual(list[2].ProductID, 937);
+            Assert.AreEqual(list[2].ProductID, 709);
         }
 
         [TestMethod]
@@ -111,7 +111,11 @@ namespace UnitTestZadanie3
         [TestMethod]
         public void GetTotalStandardCostByCategoryTest() {
 
-            int suma = QueriesClass.GetTotalStandardCostByCategory("Clothing");
+            ProductCategory category = new ProductCategory
+            {
+                Name = "Clothing"
+            };
+            int suma = QueriesClass.GetTotalStandardCostByCategory(category);
 
             Assert.AreEqual(suma, 868);
         }
