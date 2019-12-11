@@ -60,5 +60,6 @@ namespace UnitTestZadanie3
                 Assert.AreEqual<int>(50, result.Count);
             }
         }
+
     }
 }

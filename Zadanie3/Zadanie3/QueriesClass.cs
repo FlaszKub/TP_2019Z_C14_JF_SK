@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Data.Linq;
 using System.Linq;
 
 namespace Zadanie3
@@ -84,6 +85,5 @@ namespace Zadanie3
                          where product.ProductSubcategory.ProductCategory.Name == categoryName
                          select product.StandardCost).Sum();
         }
-
     }
 }
