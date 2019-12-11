@@ -31,28 +31,39 @@ namespace Zadanie3
         {
             string result = "";
             var answer = (from product in products
-                          from vendor in vendors
-                          where vendor.ProductID.Equals(product.ProductID)
-                          select product.Name + "-" + vendor.Vendor.Name).ToList();
+                          from productVendor in vendors
+                          where product.ProductID.Equals(productVendor.ProductID)
+                          select new { productName = product.Name, productVendorName = productVendor.Vendor.Name }).ToList();
             int indexLastElement = answer.Count - 1;
             for (int i = 0; i < answer.Count; i++)
             {
-                result += answer[i];
-                if (i != indexLastElement) result += Environment.NewLine;
+                if (i == indexLastElement)
+                {
+                    result += answer[i].productName + " - " + answer[i].productVendorName;
+                }else
+                {
+                    result += answer[i].productName + " - " + answer[i].productVendorName + "\n";
+                }
             }
             return result;
-
         }
 
         public static string GetVendorProductListLambda(this List<Product> products, List<ProductVendor> vendors)
         {
             string result = "";
-            var answer = products.Join(vendors, product => product.ProductID, vendor => vendor.ProductID, (product, vendor) => product.Name + "-" + vendor.Vendor.Name).ToList();
+            var answer = products.Join(vendors, product => product.ProductID, vendor => vendor.ProductID, (product, vendor) => new { productName = product.Name, productVendorName = vendor.Vendor.Name }).ToList();
             int indexLastElement = answer.Count - 1;
+
             for (int i = 0; i < answer.Count; i++)
             {
-                result += answer[i];
-                if (i != indexLastElement) result += Environment.NewLine;
+                if (i == indexLastElement)
+                {
+                    result += answer[i].productName + " - " + answer[i].productVendorName;
+                }
+                else
+                {
+                    result += answer[i].productName + " - " + answer[i].productVendorName + "\n";
+                }
             }
             return result;
 

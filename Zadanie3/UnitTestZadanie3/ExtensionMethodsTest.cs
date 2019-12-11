@@ -40,16 +40,31 @@ namespace UnitTestZadanie3
                 List<ProductVendor> vendors = dataContext.GetTable<ProductVendor>().ToList();
 
                 string answer = products.GetVendorProductListQuery(vendors);
-                string[] lines = answer.Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
-                Assert.IsTrue(lines.Contains("Thin-Jam Hex Nut 16-Advanced Bicycles"));
-                Assert.IsTrue(lines.Contains("HL Crankarm-West Junction Cycles"));
-                Assert.IsTrue(lines.Contains("LL Crankarm-Vision Cycles, Inc."));
+                string[] lines = answer.Split('\n');
+                Assert.IsTrue(lines.Contains("Bearing Ball - Wood Fitness"));
+                Assert.IsTrue(lines.Contains("LL Crankarm - Proseware, Inc."));
                 Assert.AreEqual(460, lines.Length);
             }
         }
 
         [TestMethod]
-        public void pageTest()
+        public void ListPGetVendorProductListLambdaTest()
+        {
+            using (ProductionDataContext dataContext = new ProductionDataContext())
+            {
+                List<Product> products = dataContext.GetTable<Product>().ToList();
+                List<ProductVendor> vendors = dataContext.GetTable<ProductVendor>().ToList();
+
+                string answer = products.GetVendorProductListLambda(vendors);
+                string[] lines = answer.Split('\n');
+                Assert.IsTrue(lines.Contains("Bearing Ball - Wood Fitness"));
+                Assert.IsTrue(lines.Contains("LL Crankarm - Proseware, Inc."));
+                Assert.AreEqual(460, lines.Length);
+            }
+        }
+
+        [TestMethod]
+        public void pageQueryTest()
         {
             using (ProductionDataContext dataContext = new ProductionDataContext())
             {
