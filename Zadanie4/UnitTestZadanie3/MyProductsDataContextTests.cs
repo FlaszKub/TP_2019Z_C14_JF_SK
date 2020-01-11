@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Data.Linq;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Zadanie3;
+using Model;
 
 namespace UnitTestZadanie3
 {
