@@ -3,10 +3,39 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:View"
+        xmlns:local="clr-namespace:ViewModel;assembly=ViewModel"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Zadanie 4" Height="400" Width="550">
+
+    <Window.DataContext>
+        <local:MainViewModel/>
+    </Window.DataContext>
+    
     <Grid>
-        
+                <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100*"/>
+            <ColumnDefinition Width="450*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+
+        <ListView Grid.Column="1" Grid.Row="0" Grid.RowSpan="3" Margin="0,5,5,5" ItemsSource="{Binding Products}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Id"  DisplayMemberBinding="{Binding ProductID}"/>
+                    <GridViewColumn Header="Name" Width="150" DisplayMemberBinding="{Binding Name}"/>
+                    <GridViewColumn Header="Number" Width="150" DisplayMemberBinding="{Binding ProductNumber}"/>
+                    <GridViewColumn Header="Size" Width="75" DisplayMemberBinding="{Binding Size}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+        <Button Grid.Column="0" Grid.Row="0" Margin="5">butt</Button>
+        <Button Grid.Column="0" Grid.Row="1" Margin="5">butt</Button>
+        <Button Grid.Column="0" Grid.Row="2" Margin="5">butt</Button>
+
     </Grid>
 </Window>

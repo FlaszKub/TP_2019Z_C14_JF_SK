@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace Model
 {
@@ -6,9 +7,9 @@ namespace Model
     {
         private IDataContext<Product> productsDataContext;
 
-        public ProductRepository(IDataContext<Product> dataContext)
+        public ProductRepository()
         {
-            productsDataContext = dataContext;
+            productsDataContext = new DataContext();
         }
 
         public bool Add(Product item)
@@ -34,6 +35,13 @@ namespace Model
         public bool Update(Product item)
         {
             return productsDataContext.Update(item);
+        }
+
+        public List<Product> GetAllProduct()
+        {
+            List<Product> result = (from product in GetAll()
+                                    select product).ToList();
+            return result;
         }
     }
 }

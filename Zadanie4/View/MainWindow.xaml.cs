@@ -12,17 +12,30 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ViewModel;
 
 namespace View
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window, IWindow
     {
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        public void ShowPopup(string message)
+        {
+            MessageBox.Show(message);
+        }
+
+        protected override void OnInitialized(EventArgs e)
+        {
+            base.OnInitialized(e);
+            MainViewModel mainViewModel = (MainViewModel)DataContext;
+            mainViewModel.MainWindow = this;
         }
     }
 }

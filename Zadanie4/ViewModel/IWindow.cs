@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace ViewModel
 {
-    public class Class1
+    public interface IWindow
     {
+        void Show();
+        void Close();
+        void ShowPopup(string message);
     }
 }

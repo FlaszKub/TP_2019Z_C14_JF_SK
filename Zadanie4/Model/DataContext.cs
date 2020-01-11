@@ -55,9 +55,6 @@ namespace Model
                 productToUpdate.SellStartDate = item.SellStartDate;
                 productToUpdate.ProductModelID = item.ProductModelID;
                 productToUpdate.SellStartDate = item.SellStartDate;
-                productToUpdate.SellEndDate = item.SellEndDate;
-                productToUpdate.DiscontinuedDate = item.DiscontinuedDate;
-                productToUpdate.ModifiedDate = item.ModifiedDate;
                 production.SubmitChanges();
                 return true;
             }
