@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Model
 {
@@ -19,11 +20,15 @@ namespace Model
             return productsDataContext.Add(item);
         }
 
-        public bool Delete(int Id)
+        public void Delete(int Id)
         {
-            bool result = productsDataContext.Delete(Get(Id));
-            ChangeInCollection?.Invoke();
-            return result;
+
+            Task.Run(() =>
+            {
+                productsDataContext.Delete(Get(Id));
+                ChangeInCollection?.Invoke();
+            });
+
         }
 
         public Product Get(int id)

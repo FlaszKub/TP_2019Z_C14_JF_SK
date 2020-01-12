@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace ViewModel
@@ -27,7 +28,7 @@ namespace ViewModel
 
         public virtual void Execute(object parameter)
         {
-            this.m_Execute();
+                this.m_Execute();
         }
         public event EventHandler CanExecuteChanged;
         #endregion

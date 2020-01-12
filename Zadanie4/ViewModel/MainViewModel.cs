@@ -54,16 +54,10 @@ namespace ViewModel
                 MainWindow.ShowPopup("Select a product");
             } else
             {
-                if (ProductRepository.Delete(Product.ProductID))
-                {
-                    MainWindow.ShowPopup("Deletion was successful");
-                }
-                else
-                {
-                    MainWindow.ShowPopup("Deletion was failed");
-                }
+                ProductRepository.Delete(Product.ProductID);
             }
         }
+
 
         #region NotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
