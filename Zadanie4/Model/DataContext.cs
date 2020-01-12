@@ -1,4 +1,6 @@
-﻿using System.Data.Linq;
+﻿using System;
+using System.Data.Linq;
+using System.Diagnostics;
 using System.Linq;
 
 namespace Model
@@ -67,16 +69,19 @@ namespace Model
 
         public bool Delete(Product item)
         {
-            try
+                try
             {
-                production.GetTable<Product>().DeleteOnSubmit(item);
+                production.Products.DeleteOnSubmit(item);
                 production.SubmitChanges(ConflictMode.ContinueOnConflict);
                 return true;
             }
-            catch
+            catch(Exception ex)
             {
+                Debug.WriteLine(ex.ToString());
                 return false;
             }
+
+
         }
 
         public Product Get(int id)

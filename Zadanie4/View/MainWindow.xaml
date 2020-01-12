@@ -22,7 +22,7 @@
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
 
-        <ListView Grid.Column="1" Grid.Row="0" Grid.RowSpan="3" Margin="0,5,5,5" ItemsSource="{Binding Products}">
+        <ListView Grid.Column="1" Grid.Row="0" Grid.RowSpan="3" Margin="0,5,5,5" ItemsSource="{Binding Products}" SelectedItem="{Binding Product}">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Id"  DisplayMemberBinding="{Binding ProductID}"/>
@@ -33,7 +33,7 @@
             </ListView.View>
         </ListView>
 
-        <Button Grid.Column="0" Grid.Row="0" Margin="5">butt</Button>
+        <Button Grid.Column="0" Grid.Row="0" Margin="5" Command="{Binding DeleteCommand}" >Delete Selected Product</Button>
         <Button Grid.Column="0" Grid.Row="1" Margin="5">butt</Button>
         <Button Grid.Column="0" Grid.Row="2" Margin="5">butt</Button>
 

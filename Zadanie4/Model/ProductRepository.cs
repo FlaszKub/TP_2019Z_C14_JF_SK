@@ -6,6 +6,8 @@ namespace Model
     public class ProductRepository : IRepository<Product>
     {
         private IDataContext<Product> productsDataContext;
+        public delegate void Handler();
+        public event Handler ChangeInCollection;
 
         public ProductRepository()
         {
@@ -17,9 +19,11 @@ namespace Model
             return productsDataContext.Add(item);
         }
 
-        public bool Delete(Product item)
+        public bool Delete(int Id)
         {
-            return productsDataContext.Delete(item);
+            bool result = productsDataContext.Delete(Get(Id));
+            ChangeInCollection?.Invoke();
+            return result;
         }
 
         public Product Get(int id)
