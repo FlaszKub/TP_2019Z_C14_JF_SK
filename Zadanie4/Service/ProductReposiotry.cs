@@ -42,9 +42,12 @@ namespace Service
             return productsDataContext.GetItems();
         }
 
-        public bool Update(Product item)
+        public void Update(Product item)
         {
-            return productsDataContext.Update(item);
+            Task.Run(() =>
+            {
+                productsDataContext.Update(item);
+            });
         }
 
         public List<Product> GetAllProduct()

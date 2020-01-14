@@ -17,6 +17,7 @@ namespace ViewModel
         private List<Product> products;
         private Product _product;
         private bool _visibility;
+        private bool _isEdit;
         #region Property
         public List<Product> Products
         {
@@ -241,10 +242,6 @@ namespace ViewModel
         }
         #endregion
 
-
-
-
-
         public MainViewModel()
         {
             ProductRepository = new ProductRepository();
@@ -254,7 +251,7 @@ namespace ViewModel
             ProductRepository.ChangeInCollection += OnProductsChanged;
             _visibility = false;
             InitList();
-            //ApplyCommand = new OwnCommand(ApplyForEdit);
+            ApplyCommand = new OwnCommand(ApplyForEdit);
         }
 
         private void InitList()
@@ -305,7 +302,7 @@ namespace ViewModel
 
         private void EditProduct()
         {
-            ApplyCommand = new OwnCommand(ApplyForEdit);
+            this._isEdit = true;
             if (SelectedProduct is null || SelectedProduct.ProductID <= 0)
             {
                 MainWindow.ShowPopup("Select a product");
@@ -317,10 +314,23 @@ namespace ViewModel
             }
         }
 
+        private void AddProduct()
+        {
+            this._isEdit = false;
+            //tutaj napisz logie do przycisku add 
+        }
+
         private void ApplyForEdit()
         {
             InsetDataToProduct(this.SelectedProduct);
-            ProductRepository.Update(this.SelectedProduct);
+            if (_isEdit)
+            {
+                ProductRepository.Update(this.SelectedProduct);
+            }
+            else
+            {
+                //tutaj akceptacja w przycisku apply czyli dodawanie produktu do bazy 
+            }
             this.Visibility = false;
         }
         #endregion
