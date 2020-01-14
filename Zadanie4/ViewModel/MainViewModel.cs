@@ -39,14 +39,8 @@ namespace ViewModel
         public ICommand DeleteCommand { get; private set; }
 
         public ICommand EditCommand { get; private set; }
-
-        private ICommand _applayCommand;
-        public ICommand ApplyCommand
-        {
-            get { return _applayCommand; }
-            private set{}
-        }
-
+        
+        public ICommand ApplyCommand { get; private set; }
 
         public IWindow MainWindow { get; set; }
 
@@ -311,7 +305,7 @@ namespace ViewModel
 
         private void EditProduct()
         {
-            this._applayCommand = new OwnCommand(ApplyForEdit);
+            ApplyCommand = new OwnCommand(ApplyForEdit);
             if (SelectedProduct is null || SelectedProduct.ProductID <= 0)
             {
                 MainWindow.ShowPopup("Select a product");
