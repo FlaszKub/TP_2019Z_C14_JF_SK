@@ -1,6 +1,7 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 
-namespace Model
+namespace Data
 {
     public interface IDataContext<T>
     {

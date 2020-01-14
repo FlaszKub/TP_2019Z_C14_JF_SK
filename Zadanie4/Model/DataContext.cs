@@ -1,9 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.Linq;
 using System.Diagnostics;
 using System.Linq;
 
-namespace Model
+namespace Data
 {
     public class DataContext : IDataContext<Product>
     {
@@ -44,7 +45,6 @@ namespace Model
                 productToUpdate.SafetyStockLevel = item.SafetyStockLevel;
                 productToUpdate.ReorderPoint = item.ReorderPoint;
                 productToUpdate.StandardCost = item.StandardCost;
-                productToUpdate.ListPrice = item.ListPrice;
                 productToUpdate.Size = item.Size;
                 productToUpdate.SizeUnitMeasureCode = item.SizeUnitMeasureCode;
                 productToUpdate.WeightUnitMeasureCode = item.WeightUnitMeasureCode;
@@ -54,7 +54,6 @@ namespace Model
                 productToUpdate.Class = item.Class;
                 productToUpdate.Style = item.Style;
                 productToUpdate.ProductSubcategoryID = item.ProductSubcategoryID;
-                productToUpdate.SellStartDate = item.SellStartDate;
                 productToUpdate.ProductModelID = item.ProductModelID;
                 productToUpdate.SellStartDate = item.SellStartDate;
                 production.SubmitChanges();
@@ -69,13 +68,13 @@ namespace Model
 
         public bool Delete(Product item)
         {
-                try
+            try
             {
                 production.Products.DeleteOnSubmit(item);
                 production.SubmitChanges(ConflictMode.ContinueOnConflict);
                 return true;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Debug.WriteLine(ex.ToString());
                 return false;
@@ -99,5 +98,18 @@ namespace Model
             }
         }
 
+        public List<string> SelectColors()
+        {
+            List<string> answer = new List<string>();
+
+            List<Product> products = production.Products.GroupBy(x => x.Color).Select(g => g.First()).ToList();
+            foreach (Product p in products)
+            {
+                answer.Add(p.Color);
+            }
+            return answer;
+        }
+
     }
+
 }
