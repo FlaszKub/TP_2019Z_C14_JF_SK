@@ -61,6 +61,12 @@ namespace Service
 
         public List<string> GetColors()
         {
+            return (from product in productsDataContext.GetItems()
+                    select product.Color).Distinct().ToList();
+        }
+
+        public List<string> GetSizes()
+        {
             List<string> answer = new List<string>();
             List<Product> products = productsDataContext.GetItems().GroupBy(x => x.Size).Select(g => g.First()).ToList();
             foreach (Product p in products)

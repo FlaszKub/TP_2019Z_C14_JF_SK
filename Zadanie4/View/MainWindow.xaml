@@ -59,7 +59,10 @@
         <Button Grid.Column="0" Grid.Row="0" Margin="5" Command="{Binding DeleteCommand}" >Delete Selected </Button>
         <Button Grid.Column="0" Grid.Row="1" Margin="5" Command="{Binding EditCommand}">Edit Selected </Button>
         <Button Grid.Column="0" Grid.Row="2" Margin="5">butt</Button>
-        <Button Grid.Column="4" Grid.Row="18" Margin="80,5">Apply</Button>
+        <Button Grid.Column="4" 
+                Grid.Row="18" 
+                Margin="80,5"
+                Visibility="{Binding Path=Visibility, Converter={StaticResource BooleanToVisibilityConverter} }">Apply</Button>
 
         <Label VerticalAlignment="Center" 
                Grid.Column="3" 
@@ -72,63 +75,252 @@
                  Grid.Column="4" 
                  Grid.Row="0" 
                  Margin="5,10" 
-                 Visibility="{Binding Path=Visibility, Converter={StaticResource BooleanToVisibilityConverter} }"/>
+                 Visibility="{Binding Path=Visibility, Converter={StaticResource BooleanToVisibilityConverter} }"
+                 Text="{Binding ProductName}"/>
         
-        <Label VerticalAlignment="Center" Grid.Column="3" Grid.Row="1" Margin="5,9,5,8" Height="24">Product number:</Label>
-        <TextBox Name="ProductNumber" VerticalAlignment="Center" Grid.Column="4" Grid.Row="1" Margin="5,12" />
+        <Label VerticalAlignment="Center" 
+               Grid.Column="3" Grid.Row="1" 
+               Margin="5,9,5,8" 
+               Height="24"
+               Visibility="{Binding Path=Visibility, Converter={StaticResource BooleanToVisibilityConverter} }">Product number:</Label>
+        <TextBox Name="ProductNumber" 
+                 VerticalAlignment="Center" 
+                 Grid.Column="4" 
+                 Grid.Row="1" 
+                 Margin="5,12" 
+                 Visibility="{Binding Path=Visibility, Converter={StaticResource BooleanToVisibilityConverter} }"
+                 Text="{Binding ProductNumber}"/>
 
 
-        <Label VerticalAlignment="Center" Grid.Column="3" Grid.Row="2" Margin="5,9" Height="24">Color:</Label>
-        <ComboBox Name="Color" VerticalAlignment="Center" Grid.Column="4" Grid.Row="2" Margin="5,11" />
+        <Label VerticalAlignment="Center" 
+               Grid.Column="3" 
+               Grid.Row="2" 
+               Margin="5,9" 
+               Height="24"
+               Visibility="{Binding Path=Visibility, Converter={StaticResource BooleanToVisibilityConverter} }">Color:</Label>
+        <ComboBox Name="Color" 
+                  VerticalAlignment="Center" 
+                  Grid.Column="4" 
+                  Grid.Row="2" 
+                  Margin="5,11" 
+                  Visibility="{Binding Path=Visibility, Converter={StaticResource BooleanToVisibilityConverter} }"
+                  ItemsSource="{Binding Colors}" 
+                  SelectedItem="{Binding Color}"/>
 
 
-        <Label VerticalAlignment="Center" Grid.Column="3" Grid.Row="3" Margin="5,8,5,9" Height="24">Safety stock level:</Label>
-        <TextBox Name="SSLevel" VerticalAlignment="Center" Grid.Column="4" Grid.Row="3" Margin="5,10" />
+        <Label VerticalAlignment="Center" 
+               Grid.Column="3" 
+               Grid.Row="3" 
+               Margin="5,8,5,9" 
+               Height="24"
+               Visibility="{Binding Path=Visibility, Converter={StaticResource BooleanToVisibilityConverter} }">Safety stock level:</Label>
+        <TextBox Name="SSLevel" 
+                 VerticalAlignment="Center" 
+                 Grid.Column="4" 
+                 Grid.Row="3" 
+                 Margin="5,10" 
+                 Visibility="{Binding Path=Visibility, Converter={StaticResource BooleanToVisibilityConverter} }"
+                 Text="{Binding SafetyStockLevel}"/>
 
-        <Label VerticalAlignment="Center" Grid.Column="3" Grid.Row="4" Margin="5,8,5,9" Height="24">Reorder point:</Label>
-        <TextBox Name="RPoint" VerticalAlignment="Center" Grid.Column="4" Grid.Row="4" Margin="5,10" />
+        <Label VerticalAlignment="Center" 
+               Grid.Column="3" 
+               Grid.Row="4" 
+               Margin="5,8,5,9" 
+               Height="24"
+               Visibility="{Binding Path=Visibility, Converter={StaticResource BooleanToVisibilityConverter} }">Reorder point:</Label>
+        <TextBox Name="RPoint" 
+                 VerticalAlignment="Center" 
+                 Grid.Column="4" 
+                 Grid.Row="4" 
+                 Margin="5,10" 
+                 Visibility="{Binding Path=Visibility, Converter={StaticResource BooleanToVisibilityConverter} }"
+                 Text="{Binding ReorderPoint}"/>
         
-        <Label VerticalAlignment="Center" Grid.Column="3" Grid.Row="5" Margin="5,9,5,8" Height="24">Standard cost:</Label>
-        <TextBox Name="SCost" VerticalAlignment="Center" Grid.Column="4" Grid.Row="5" Margin="5,10" />
+        <Label VerticalAlignment="Center" 
+               Grid.Column="3" 
+               Grid.Row="5" 
+               Margin="5,9,5,8" 
+               Height="24"
+               Visibility="{Binding Path=Visibility, Converter={StaticResource BooleanToVisibilityConverter} }">Standard cost:</Label>
+        <TextBox Name="SCost" 
+                 VerticalAlignment="Center" 
+                 Grid.Column="4" 
+                 Grid.Row="5" 
+                 Margin="5,10" 
+                 Visibility="{Binding Path=Visibility, Converter={StaticResource BooleanToVisibilityConverter} }"
+                 Text="{Binding StandardCost}"/>
 
-        <Label VerticalAlignment="Center" Grid.Column="3" Grid.Row="6" Margin="5,8,5,9" Height="24">Size:</Label>
-        <TextBox Name="Size" VerticalAlignment="Center" Grid.Column="4" Grid.Row="6" Margin="5,10" />
-
-
-        <Label VerticalAlignment="Center" Grid.Column="3" Grid.Row="7" Margin="5,8,5,9" Height="24">Size unit measure code:</Label>
-        <ComboBox Name="SizeUMC" VerticalAlignment="Center" Grid.Column="4" Grid.Row="7" Margin="5,10,5,11" Height="20"/>
-
-        <Label VerticalAlignment="Center" Grid.Column="3" Grid.Row="8" Margin="5,9,5,8" Height="24">Weight unit measure code:</Label>
-        <ComboBox Name="WeightUMC" VerticalAlignment="Center" Grid.Column="4" Grid.Row="8" Margin="5,11,5,10"  Height="20" />
-
-
-        <Label VerticalAlignment="Center" Grid.Column="3" Grid.Row="9" Margin="5,9,5,8" Height="24">Weight:</Label>
-        <TextBox Name="Weight" VerticalAlignment="Center" Grid.Column="4" Grid.Row="9" Margin="5,13,5,12" />
-
-        <Label VerticalAlignment="Center" Grid.Column="3" Grid.Row="10" Margin="5,8,5,9" Height="24">Days to manufacture:</Label>
-        <TextBox Name="DaysTMF" VerticalAlignment="Center" Grid.Column="4" Grid.Row="10" Margin="5,10" />
-
-
-        <Label VerticalAlignment="Center" Grid.Column="3" Grid.Row="11" Margin="5,9,5,8" Height="23">Product line:</Label>
-        <ComboBox Name="ProductLine" VerticalAlignment="Center" Grid.Column="4" Grid.Row="11" Margin="5,11,5,10" />
-
-
-        <Label VerticalAlignment="Center" Grid.Column="3" Grid.Row="12" Margin="5,8,5,9" Height="24">Class:</Label>
-        <ComboBox Name="Class" VerticalAlignment="Center" Grid.Column="4" Grid.Row="12" Margin="5,10,5,11"  Height="20" />
-
-
-        <Label VerticalAlignment="Center" Grid.Column="3" Grid.Row="13" Margin="5,9,5,8" Height="24">Style:</Label>
-        <ComboBox Name="Style" VerticalAlignment="Center" Grid.Column="4" Grid.Row="13" Margin="5,11,5,10"  Height="20" />
-
-        <Label VerticalAlignment="Center" Grid.Column="3" Grid.Row="14" Margin="5,8,5,9" Height="24">Product subcategory:</Label>
-        <ComboBox Name="ProductSubcategory" VerticalAlignment="Center" Grid.Column="4" Grid.Row="14" Margin="5,10,5,11"  Height="20" />
-
-        <Label VerticalAlignment="Center" Grid.Column="3" Grid.Row="15" Margin="5,9,5,8" Height="24">Product model ID:</Label>
-        <ComboBox Name="ProductModelID" VerticalAlignment="Center" Grid.Column="4" Grid.Row="15" Margin="5,11,5,10" Height="20" />
+        <Label VerticalAlignment="Center" 
+               Grid.Column="3" 
+               Grid.Row="6" 
+               Margin="5,8,5,9" 
+               Height="24"
+               Visibility="{Binding Path=Visibility, Converter={StaticResource BooleanToVisibilityConverter} }">Size:</Label>
+        <TextBox Name="Size" 
+                 VerticalAlignment="Center" 
+                 Grid.Column="4" 
+                 Grid.Row="6" 
+                 Margin="5,10" 
+                 Visibility="{Binding Path=Visibility, Converter={StaticResource BooleanToVisibilityConverter} }"
+                 Text="{Binding Size}"/>
 
 
-        <Label VerticalAlignment="Center" Grid.Column="3" Grid.Row="16" Margin="5,8,5,9" Height="24">Sell start date:</Label>
-        <DatePicker Name="SellStartDate" VerticalAlignment="Center" Grid.Column="4" Grid.Row="16" Margin="5,10" />
+        <Label VerticalAlignment="Center" 
+               Grid.Column="3" 
+               Grid.Row="7" 
+               Margin="5,8,5,9" 
+               Height="24"
+               Visibility="{Binding Path=Visibility, Converter={StaticResource BooleanToVisibilityConverter} }">Size unit measure code:</Label>
+        <ComboBox Name="SizeUMC" 
+                  VerticalAlignment="Center" 
+                  Grid.Column="4" 
+                  Grid.Row="7" 
+                  Margin="5,10,5,11" 
+                  Height="20"
+                  Visibility="{Binding Path=Visibility, Converter={StaticResource BooleanToVisibilityConverter} }"
+                  ItemsSource="{Binding SizesUnits}" 
+                  SelectedItem="{Binding SizeUnitMeasureCode}"/>
+
+        <Label VerticalAlignment="Center" 
+               Grid.Column="3" 
+               Grid.Row="8" 
+               Margin="5,9,5,8" 
+               Height="24"
+               Visibility="{Binding Path=Visibility, Converter={StaticResource BooleanToVisibilityConverter} }">Weight unit measure code:</Label>
+        <ComboBox Name="WeightUMC" 
+                  VerticalAlignment="Center" 
+                  Grid.Column="4" 
+                  Grid.Row="8" 
+                  Margin="5,11,5,10"  
+                  Height="20" 
+                  Visibility="{Binding Path=Visibility, Converter={StaticResource BooleanToVisibilityConverter} }"
+                  ItemsSource="{Binding WeightUnits}" 
+                  SelectedItem="{Binding WeightUnitMeasureCode}"/>
+
+
+        <Label VerticalAlignment="Center" 
+               Grid.Column="3" 
+               Grid.Row="9" 
+               Margin="5,9,5,8" 
+               Height="24"
+               Visibility="{Binding Path=Visibility, Converter={StaticResource BooleanToVisibilityConverter} }">Weight:</Label>
+        <TextBox Name="Weight" 
+                 VerticalAlignment="Center" 
+                 Grid.Column="4" 
+                 Grid.Row="9" 
+                 Margin="5,13,5,12" 
+                 Visibility="{Binding Path=Visibility, Converter={StaticResource BooleanToVisibilityConverter} }"
+                 Text="{Binding Weight}"/>
+
+        <Label VerticalAlignment="Center" 
+               Grid.Column="3" 
+               Grid.Row="10" 
+               Margin="5,8,5,9" 
+               Height="24"
+               Visibility="{Binding Path=Visibility, Converter={StaticResource BooleanToVisibilityConverter} }">Days to manufacture:</Label>
+        <TextBox Name="DaysTMF" 
+                 VerticalAlignment="Center" 
+                 Grid.Column="4" 
+                 Grid.Row="10" 
+                 Margin="5,10" 
+                 Visibility="{Binding Path=Visibility, Converter={StaticResource BooleanToVisibilityConverter} }"
+                 Text="{Binding DaysToManufacture}"/>
+
+
+        <Label VerticalAlignment="Center" 
+               Grid.Column="3" 
+               Grid.Row="11" 
+               Margin="5,9,5,8" 
+               Height="23"
+               Visibility="{Binding Path=Visibility, Converter={StaticResource BooleanToVisibilityConverter} }">Product line:</Label>
+        <ComboBox Name="ProductLine" 
+                  VerticalAlignment="Center" 
+                  Grid.Column="4" 
+                  Grid.Row="11" 
+                  Margin="5,11,5,10" 
+                  Visibility="{Binding Path=Visibility, Converter={StaticResource BooleanToVisibilityConverter} }"
+                  ItemsSource="{Binding ProductLines}" 
+                  SelectedItem="{Binding ProductLine}"/>
+
+
+        <Label VerticalAlignment="Center" 
+               Grid.Column="3" 
+               Grid.Row="12" 
+               Margin="5,8,5,9" 
+               Height="24"
+               Visibility="{Binding Path=Visibility, Converter={StaticResource BooleanToVisibilityConverter} }">Class:</Label>
+        <ComboBox Name="Class" 
+                  VerticalAlignment="Center"
+                  Grid.Column="4" 
+                  Grid.Row="12" 
+                  Margin="5,10,5,11"  
+                  Height="20" 
+                  Visibility="{Binding Path=Visibility, Converter={StaticResource BooleanToVisibilityConverter} }"
+                  ItemsSource="{Binding Classes}" 
+                  SelectedItem="{Binding Class}"/>
+
+
+        <Label VerticalAlignment="Center" 
+               Grid.Column="3" 
+               Grid.Row="13" 
+               Margin="5,9,5,8" 
+               Height="24"
+               Visibility="{Binding Path=Visibility, Converter={StaticResource BooleanToVisibilityConverter} }">Style:</Label>
+        <ComboBox Name="Style" 
+                  VerticalAlignment="Center" 
+                  Grid.Column="4" 
+                  Grid.Row="13" 
+                  Margin="5,11,5,10"  
+                  Height="20" 
+                  Visibility="{Binding Path=Visibility, Converter={StaticResource BooleanToVisibilityConverter} }"
+                  ItemsSource="{Binding Styles}" 
+                  SelectedItem="{Binding Style}"/>
+
+        <Label VerticalAlignment="Center" 
+               Grid.Column="3" 
+               Grid.Row="14" 
+               Margin="5,8,5,9" 
+               Height="24"
+               Visibility="{Binding Path=Visibility, Converter={StaticResource BooleanToVisibilityConverter} }">Product subcategory:</Label>
+        <ComboBox Name="ProductSubcategory" 
+                  VerticalAlignment="Center" 
+                  Grid.Column="4" 
+                  Grid.Row="14" 
+                  Margin="5,10,5,11" 
+                  Height="20" 
+                  Visibility="{Binding Path=Visibility, Converter={StaticResource BooleanToVisibilityConverter} }"
+                  ItemsSource="{Binding ProductSubCategories}" 
+                  SelectedItem="{Binding ProductSubcategoryID}"/>
+
+        <Label VerticalAlignment="Center" 
+               Grid.Column="3" 
+               Grid.Row="15" 
+               Margin="5,9,5,8" 
+               Height="24"
+               Visibility="{Binding Path=Visibility, Converter={StaticResource BooleanToVisibilityConverter} }">Product model ID:</Label>
+        <ComboBox Name="ProductModelID" 
+                  VerticalAlignment="Center" 
+                  Grid.Column="4" 
+                  Grid.Row="15" 
+                  Margin="5,11,5,10" 
+                  Height="20" 
+                  Visibility="{Binding Path=Visibility, Converter={StaticResource BooleanToVisibilityConverter} }"
+                  ItemsSource="{Binding ModelId}" 
+                  SelectedItem="{Binding ModelIds}"/>
+
+
+        <Label VerticalAlignment="Center" 
+               Grid.Column="3" 
+               Grid.Row="16" 
+               Margin="5,8,5,9" 
+               Height="24"
+               Visibility="{Binding Path=Visibility, Converter={StaticResource BooleanToVisibilityConverter} }">Sell start date:</Label>
+        <DatePicker Name="SellStartDate" 
+                    VerticalAlignment="Center" 
+                    Grid.Column="4" 
+                    Grid.Row="16" 
+                    Margin="5,10" 
+                    Visibility="{Binding Path=Visibility, Converter={StaticResource BooleanToVisibilityConverter} }"/>
 
 
     </Grid>
