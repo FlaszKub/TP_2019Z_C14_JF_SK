@@ -27,7 +27,7 @@ namespace ViewModel
                 NotifyPropertyChanged("Products");
             }
         }
-        public Product Product
+        public Product SelectedProduct
         {
             get { return _product; }
             set
@@ -40,6 +40,14 @@ namespace ViewModel
 
         public ICommand EditCommand { get; private set; }
 
+        private ICommand _applayCommand;
+        public ICommand ApplyCommand
+        {
+            get { return _applayCommand; }
+            private set{}
+        }
+
+
         public IWindow MainWindow { get; set; }
 
         public List<string> Colors { get; set; }
@@ -50,7 +58,7 @@ namespace ViewModel
         public List<string> Classes { get; set; }
         public List<string> Styles { get; set; }
         public List<string> ProductSubCategories { get; set; }
-        public List<string> ModelIds { get; set; }
+        public List<string> Models { get; set; }
         #endregion
 
         public bool Visibility
@@ -63,7 +71,7 @@ namespace ViewModel
             }
         }
 
-        #region private static data
+        #region private data
         private string _productName;
         private string _productNumber;
         private string _color;
@@ -83,7 +91,7 @@ namespace ViewModel
         private DateTime _sellStartDate;
         #endregion
 
-        #region lala
+        #region for Binding fields
         public string ProductName
         {
             get { return _productName; }
@@ -210,7 +218,7 @@ namespace ViewModel
                 NotifyPropertyChanged("Style");
             }
         }
-        public string ProductSubcategoryID
+        public string ProductSubcategoryName
         {
             get { return _productSubcategoryID; }
             set
@@ -219,7 +227,7 @@ namespace ViewModel
                 NotifyPropertyChanged("ProductSubcategoryID");
             }
         }
-        public string ModelId
+        public string ModelName
         {
             get { return _modelId; }
             set
@@ -252,6 +260,7 @@ namespace ViewModel
             ProductRepository.ChangeInCollection += OnProductsChanged;
             _visibility = false;
             InitList();
+            //ApplyCommand = new OwnCommand(ApplyForEdit);
         }
 
         private void InitList()
@@ -264,33 +273,84 @@ namespace ViewModel
             this.Classes = this.ProductRepository.GetClasses();
             this.Styles = this.ProductRepository.GetStyles();
             this.ProductSubCategories = this.ProductRepository.GetProductSubCategories();
-            this.ModelIds = this.ProductRepository.GetModelIds();
+            this.Models = this.ProductRepository.GetModels();
         }
 
+        private void InitEditProduct()
+        {
+            this.ProductName = this._product.Name;
+            this.ProductNumber = this._product.ProductNumber;
+            this.Color = this._product.Color;
+            this.SafetyStockLevel = this._product.SafetyStockLevel;
+            this.ReorderPoint = this._product.ReorderPoint;
+            this.StandardCost = this._product.StandardCost;
+            this.Size = this._product.Size;
+            this.SizeUnitMeasureCode = this._product.SizeUnitMeasureCode;
+            this.WeightUnitMeasureCode = this._product.WeightUnitMeasureCode;
+            this.Weight = this._product.Weight;
+            this.DaysToManufacture = this._product.DaysToManufacture;
+            this.ProductLine = this._product.ProductLine;
+            this.Class = this._product.Class;
+            this.Style = this._product.Style;
+            this.ProductSubcategoryName = this._product.ProductSubcategory.Name;
+            this.ModelName = this._product.ProductModel.Name;
+            this.SellStartDate = this._product.SellStartDate;
+    }
 
+        #region methods for init command
         private void DeleteProduct()
         {
-            if(Product is null || Product.ProductID <= 0)
+            if(SelectedProduct is null || SelectedProduct.ProductID <= 0)
             {
                 MainWindow.ShowPopup("Select a product");
             } else
             {
-                ProductRepository.Delete(Product.ProductID);
+                ProductRepository.Delete(SelectedProduct.ProductID);
             }
         }
 
         private void EditProduct()
         {
-            if (Product is null || Product.ProductID <= 0)
+            this._applayCommand = new OwnCommand(ApplyForEdit);
+            if (SelectedProduct is null || SelectedProduct.ProductID <= 0)
             {
                 MainWindow.ShowPopup("Select a product");
             }
             else
             {
-                this.Visibility = true;
+                InitEditProduct();
+                Visibility = true;
             }
         }
 
+        private void ApplyForEdit()
+        {
+            InsetDataToProduct(this.SelectedProduct);
+            ProductRepository.Update(this.SelectedProduct);
+            this.Visibility = false;
+        }
+        #endregion
+
+        private void InsetDataToProduct(Product p)
+        {
+            p.Name = this.ProductName;
+            p.ProductNumber = this.ProductNumber;
+            p.Color = this.Color;
+            p.SafetyStockLevel = this.SafetyStockLevel;
+            p.ReorderPoint = this.ReorderPoint;
+            p.StandardCost = this.StandardCost;
+            p.Size = this.Size;
+            p.SizeUnitMeasureCode = this.SizeUnitMeasureCode;
+            p.WeightUnitMeasureCode = this.WeightUnitMeasureCode;
+            p.Weight = this.Weight;
+            p.DaysToManufacture = this.DaysToManufacture;
+            p.ProductLine = this.ProductLine;
+            p.Class = this.Class;
+            p.Style = this.Style;
+            p.ProductSubcategory.Name = this.ProductSubcategoryName;
+            p.ProductModel.Name = this.ModelName;
+            p.SellStartDate = this.SellStartDate;
+        }
 
 
 

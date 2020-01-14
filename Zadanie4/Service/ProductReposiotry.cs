@@ -122,7 +122,7 @@ namespace Service
                     select product.ProductSubcategory.Name).Distinct().ToList();
         }
 
-        public List<string> GetModelIds()
+        public List<string> GetModels()
         {
                 return (from product in productsDataContext.GetItems()
                         where product.ProductModel != null

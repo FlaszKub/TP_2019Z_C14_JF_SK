@@ -45,7 +45,7 @@
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
 
-        <ListView Grid.Column="1" Grid.Row="0" Grid.RowSpan="18" Margin="0,5,5,5" ItemsSource="{Binding Products}" SelectedItem="{Binding Product}">
+        <ListView Grid.Column="1" Grid.Row="0" Grid.RowSpan="18" Margin="0,5,5,5" ItemsSource="{Binding Products}" SelectedItem="{Binding SelectedProduct}">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Id"  DisplayMemberBinding="{Binding ProductID}"/>
@@ -62,7 +62,8 @@
         <Button Grid.Column="4" 
                 Grid.Row="18" 
                 Margin="80,5"
-                Visibility="{Binding Path=Visibility, Converter={StaticResource BooleanToVisibilityConverter} }">Apply</Button>
+                Visibility="{Binding Path=Visibility, Converter={StaticResource BooleanToVisibilityConverter} }"
+                Command="{Binding ApplyCommand}">Apply</Button>
 
         <Label VerticalAlignment="Center" 
                Grid.Column="3" 
@@ -281,7 +282,7 @@
                Grid.Row="14" 
                Margin="5,8,5,9" 
                Height="24"
-               Visibility="{Binding Path=Visibility, Converter={StaticResource BooleanToVisibilityConverter} }">Product subcategory:</Label>
+               Visibility="{Binding Path=Visibility, Converter={StaticResource BooleanToVisibilityConverter} }">Product subcategory Name:</Label>
         <ComboBox Name="ProductSubcategory" 
                   VerticalAlignment="Center" 
                   Grid.Column="4" 
@@ -290,14 +291,14 @@
                   Height="20" 
                   Visibility="{Binding Path=Visibility, Converter={StaticResource BooleanToVisibilityConverter} }"
                   ItemsSource="{Binding ProductSubCategories}" 
-                  SelectedItem="{Binding ProductSubcategoryID}"/>
+                  SelectedItem="{Binding ProductSubcategoryName}"/>
 
         <Label VerticalAlignment="Center" 
                Grid.Column="3" 
                Grid.Row="15" 
                Margin="5,9,5,8" 
                Height="24"
-               Visibility="{Binding Path=Visibility, Converter={StaticResource BooleanToVisibilityConverter} }">Product model ID:</Label>
+               Visibility="{Binding Path=Visibility, Converter={StaticResource BooleanToVisibilityConverter} }">Product model Name:</Label>
         <ComboBox Name="ProductModelID" 
                   VerticalAlignment="Center" 
                   Grid.Column="4" 
@@ -305,8 +306,8 @@
                   Margin="5,11,5,10" 
                   Height="20" 
                   Visibility="{Binding Path=Visibility, Converter={StaticResource BooleanToVisibilityConverter} }"
-                  ItemsSource="{Binding ModelId}" 
-                  SelectedItem="{Binding ModelIds}"/>
+                  ItemsSource="{Binding Models}" 
+                  SelectedItem="{Binding ModelName}"/>
 
 
         <Label VerticalAlignment="Center" 
@@ -320,7 +321,8 @@
                     Grid.Column="4" 
                     Grid.Row="16" 
                     Margin="5,10" 
-                    Visibility="{Binding Path=Visibility, Converter={StaticResource BooleanToVisibilityConverter} }"/>
+                    Visibility="{Binding Path=Visibility, Converter={StaticResource BooleanToVisibilityConverter} }"
+                    SelectedDate="{Binding SellStartDate}"/>
 
 
     </Grid>
