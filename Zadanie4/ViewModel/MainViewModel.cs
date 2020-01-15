@@ -38,6 +38,7 @@ namespace ViewModel
         }
         public ProductRepository ProductRepository { get; set; }
         public ICommand DeleteCommand { get; private set; }
+        public ICommand AddCommand { get; private set; }
 
         public ICommand EditCommand { get; private set; }
         
@@ -248,6 +249,7 @@ namespace ViewModel
             products = ProductRepository.GetAllProduct();
             DeleteCommand = new OwnCommand(DeleteProduct);
             EditCommand = new OwnCommand(EditProduct);
+            AddCommand = new OwnCommand(AddProduct);
             ProductRepository.ChangeInCollection += OnProductsChanged;
             _visibility = false;
             InitList();
@@ -286,7 +288,31 @@ namespace ViewModel
             this.ProductSubcategoryName = this._product.ProductSubcategory.Name;
             this.ModelName = this._product.ProductModel.Name;
             this.SellStartDate = this._product.SellStartDate;
-    }
+
+        }
+
+        private void InitAddProduct()
+        {
+            this.ProductName = null;
+            this.ProductNumber = null;
+            this.Color = null;
+            this.SafetyStockLevel = 0;
+            this.ReorderPoint = 0;
+            this.StandardCost = 0;
+            this.Size = null;
+            this.SizeUnitMeasureCode = null;
+            this.WeightUnitMeasureCode = null;
+            this.Weight = 0;
+            this.DaysToManufacture = 0;
+            this.ProductLine = null;
+            this.Class = null;
+            this.Style = null;
+            this.ProductSubcategoryName = null;
+            this.ModelName = null;
+            this.SellStartDate = DateTime.Now;
+
+        }
+
 
         #region methods for init command
         private void DeleteProduct()
@@ -316,20 +342,26 @@ namespace ViewModel
 
         private void AddProduct()
         {
-            this._isEdit = false;
+            _isEdit = false;
+            InitAddProduct();
+            Visibility = !Visibility;
+
             //tutaj napisz logie do przycisku add 
         }
 
         private void ApplyForEdit()
         {
-            InsetDataToProduct(this.SelectedProduct);
+            
             if (_isEdit)
             {
+                InsetDataToProduct(this.SelectedProduct);
                 ProductRepository.Update(this.SelectedProduct);
             }
             else
             {
-                //tutaj akceptacja w przycisku apply czyli dodawanie produktu do bazy 
+                Product newProduct = new Product();
+                InsetDataToProduct(newProduct);
+                ProductRepository.Add(newProduct);
             }
             this.Visibility = false;
         }
@@ -351,8 +383,21 @@ namespace ViewModel
             p.ProductLine = this.ProductLine;
             p.Class = this.Class;
             p.Style = this.Style;
-            p.ProductSubcategory.Name = this.ProductSubcategoryName;
-            p.ProductModel.Name = this.ModelName;
+            if (this.ProductSubcategoryName != null)
+            {
+                p.ProductSubcategory = ProductRepository.GetProductSubcategoryIDForName(this.ProductSubcategoryName);
+            }
+            else {
+                p.ProductSubcategoryID = null;
+            }
+            if (this.ModelName != null)
+            {
+                p.ProductModel = ProductRepository.GetProductModelIDForName(this.ModelName);
+            }
+            else
+            {
+                p.ProductModelID = null;
+            }   
             p.SellStartDate = this.SellStartDate;
         }
 

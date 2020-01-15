@@ -8,7 +8,7 @@ namespace Data
 {
     public class DataContext : IDataContext<Product>
     {
-        private readonly ProductionDataContext production;
+        private ProductionDataContext production;
 
         public DataContext()
         {
@@ -24,6 +24,8 @@ namespace Data
         {
             try
             {
+                item.ModifiedDate = DateTime.Today;
+                item.rowguid = Guid.NewGuid();
                 production.GetTable<Product>().InsertOnSubmit(item);
                 production.SubmitChanges();
                 return true;

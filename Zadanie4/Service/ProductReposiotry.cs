@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Data;
@@ -16,9 +17,13 @@ namespace Service
             productsDataContext = new DataContext();
         }
 
-        public bool Add(Product item)
+        public void Add(Product item)
         {
-            return productsDataContext.Add(item);
+            Task.Run(() =>
+            {
+                productsDataContext.Add(item);
+                ChangeInCollection?.Invoke();
+            });
         }
 
         public void Delete(int Id)
@@ -133,6 +138,19 @@ namespace Service
 
         }
 
+        public ProductSubcategory GetProductSubcategoryIDForName(string Name)
+        {
+            return (from product in productsDataContext.GetItems()
+                           where product.ProductSubcategory.Name == Name
+                           select product.ProductSubcategory).First();
+        }
+
+        public ProductModel GetProductModelIDForName(string Name)
+        { 
+            return (from product in productsDataContext.GetItems()
+                   where product.ProductModel.Name == Name
+                   select product.ProductModel).First();
+        }
     }
 }
 
