@@ -220,7 +220,7 @@ namespace ViewModel
             set
             {
                 _productSubcategoryID = value;
-                NotifyPropertyChanged("ProductSubcategoryID");
+                NotifyPropertyChanged("ProductSubcategoryName");
             }
         }
         public string ModelName
@@ -229,7 +229,7 @@ namespace ViewModel
             set
             {
                 _modelId = value;
-                NotifyPropertyChanged("ModelId");
+                NotifyPropertyChanged("ModelName");
             }
         }
         public DateTime SellStartDate
@@ -285,8 +285,8 @@ namespace ViewModel
             this.ProductLine = this._product.ProductLine;
             this.Class = this._product.Class;
             this.Style = this._product.Style;
-            this.ProductSubcategoryName = this._product.ProductSubcategory.Name;
-            this.ModelName = this._product.ProductModel.Name;
+            this.ProductSubcategoryName = this._product.ProductSubcategory?.Name;
+            this.ModelName = this._product.ProductModel?.Name;
             this.SellStartDate = this._product.SellStartDate;
 
         }
@@ -385,14 +385,14 @@ namespace ViewModel
             p.Style = this.Style;
             if (this.ProductSubcategoryName != null)
             {
-                p.ProductSubcategory = ProductRepository.GetProductSubcategoryIDForName(this.ProductSubcategoryName);
+                p.ProductSubcategory = ProductRepository.GetProductSubcategoryForName(this.ProductSubcategoryName);
             }
             else {
                 p.ProductSubcategoryID = null;
             }
             if (this.ModelName != null)
             {
-                p.ProductModel = ProductRepository.GetProductModelIDForName(this.ModelName);
+                p.ProductModel = ProductRepository.GetProductModelForName(this.ModelName);
             }
             else
             {

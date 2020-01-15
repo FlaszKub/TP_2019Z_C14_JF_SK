@@ -138,18 +138,32 @@ namespace Service
 
         }
 
-        public ProductSubcategory GetProductSubcategoryIDForName(string Name)
+        public ProductSubcategory GetProductSubcategoryForName(string Name)
         {
             return (from product in productsDataContext.GetItems()
                            where product.ProductSubcategory.Name == Name
                            select product.ProductSubcategory).First();
         }
 
-        public ProductModel GetProductModelIDForName(string Name)
+        public ProductModel GetProductModelForName(string Name)
         { 
             return (from product in productsDataContext.GetItems()
                    where product.ProductModel.Name == Name
                    select product.ProductModel).First();
+        }
+
+        public string getSubcatergoryNameForID(int? id)
+        {
+            return (from product in productsDataContext.GetItems()
+                    where product.ProductSubcategoryID == id
+                    select product.ProductSubcategory.Name).First();
+        }
+
+        public string getModelNameForID(int? id)
+        {
+            return (from product in productsDataContext.GetItems()
+                    where product.ProductModelID == id
+                    select product.ProductModel.Name).First();
         }
     }
 }
