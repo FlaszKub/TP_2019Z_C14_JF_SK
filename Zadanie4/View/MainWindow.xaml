@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:val ="clr-namespace:View.validate"
         xmlns:local="clr-namespace:ViewModel;assembly=ViewModel"
         mc:Ignorable="d"
         Title="Zadanie 4" Height="800" Width="990">
@@ -77,8 +78,17 @@
                  Grid.Row="0" 
                  Margin="5,10" 
                  Visibility="{Binding Path=Visibility, Converter={StaticResource BooleanToVisibilityConverter} }"
-                 Text="{Binding ProductName}"/>
-        
+                 >
+            <TextBox.Text>
+                <Binding Path="ProductName" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <val:ValidateProductName ValidationStep="RawProposedValue"/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+
+
         <Label VerticalAlignment="Center" 
                Grid.Column="3" Grid.Row="1" 
                Margin="5,9,5,8" 
@@ -90,7 +100,15 @@
                  Grid.Row="1" 
                  Margin="5,12" 
                  Visibility="{Binding Path=Visibility, Converter={StaticResource BooleanToVisibilityConverter} }"
-                 Text="{Binding ProductNumber}"/>
+                 >
+            <TextBox.Text>
+                <Binding Path="ProductNumber" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <val:ValidateProductNumber ValidationStep="RawProposedValue"/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
 
 
         <Label VerticalAlignment="Center" 
@@ -121,7 +139,15 @@
                  Grid.Row="3" 
                  Margin="5,10" 
                  Visibility="{Binding Path=Visibility, Converter={StaticResource BooleanToVisibilityConverter} }"
-                 Text="{Binding SafetyStockLevel}"/>
+                 >
+            <TextBox.Text>
+                <Binding Path="SafetyStockLevel" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <val:ValidateNumberHigher ValidationStep="RawProposedValue"/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
 
         <Label VerticalAlignment="Center" 
                Grid.Column="3" 
@@ -135,7 +161,15 @@
                  Grid.Row="4" 
                  Margin="5,10" 
                  Visibility="{Binding Path=Visibility, Converter={StaticResource BooleanToVisibilityConverter} }"
-                 Text="{Binding ReorderPoint}"/>
+                 >
+            <TextBox.Text>
+                <Binding Path="ReorderPoint" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <val:ValidateNumberZero ValidationStep="RawProposedValue"/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
         
         <Label VerticalAlignment="Center" 
                Grid.Column="3" 
@@ -149,7 +183,15 @@
                  Grid.Row="5" 
                  Margin="5,10" 
                  Visibility="{Binding Path=Visibility, Converter={StaticResource BooleanToVisibilityConverter} }"
-                 Text="{Binding StandardCost}"/>
+                 >
+            <TextBox.Text>
+                <Binding Path="StandardCost" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <val:ValidateDecimalHigher ValidationStep="RawProposedValue"/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
 
         <Label VerticalAlignment="Center" 
                Grid.Column="3" 
@@ -163,7 +205,15 @@
                  Grid.Row="6" 
                  Margin="5,10" 
                  Visibility="{Binding Path=Visibility, Converter={StaticResource BooleanToVisibilityConverter} }"
-                 Text="{Binding Size}"/>
+                 >
+            <TextBox.Text>
+                <Binding Path="Size" UpdateSourceTrigger="PropertyChanged" >
+                    <Binding.ValidationRules>
+                        <val:ValidateEmptyString ValidationStep="RawProposedValue"/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
 
 
         <Label VerticalAlignment="Center" 
@@ -211,7 +261,15 @@
                  Grid.Row="9" 
                  Margin="5,13,5,12" 
                  Visibility="{Binding Path=Visibility, Converter={StaticResource BooleanToVisibilityConverter} }"
-                 Text="{Binding Weight}"/>
+                 >
+            <TextBox.Text>
+                <Binding Path="Weight" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <val:ValidateDecimalHigher ValidationStep="RawProposedValue"/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
 
         <Label VerticalAlignment="Center" 
                Grid.Column="3" 
@@ -225,7 +283,15 @@
                  Grid.Row="10" 
                  Margin="5,10" 
                  Visibility="{Binding Path=Visibility, Converter={StaticResource BooleanToVisibilityConverter} }"
-                 Text="{Binding DaysToManufacture}"/>
+                 >
+            <TextBox.Text>
+                <Binding Path="DaysToManufacture" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <val:ValidateNumberHigher ValidationStep="RawProposedValue"/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
 
 
         <Label VerticalAlignment="Center" 

@@ -302,7 +302,7 @@ namespace ViewModel
             this.Size = null;
             this.SizeUnitMeasureCode = null;
             this.WeightUnitMeasureCode = null;
-            this.Weight = 0;
+            this.Weight = null;
             this.DaysToManufacture = 0;
             this.ProductLine = null;
             this.Class = null;

@@ -55,7 +55,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="validate\ValidateEmpty.cs" />
+    <Compile Include="validate\ValidateDecimalHigher.cs" />
+    <Compile Include="validate\ValidateEmptyString.cs" />
+    <Compile Include="validate\ValidateNumberZero.cs" />
+    <Compile Include="validate\ValidateNumberHigher.cs" />
+    <Compile Include="validate\ValidateProductName.cs" />
+    <Compile Include="validate\ValidateProductNumber.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
